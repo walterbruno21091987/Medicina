@@ -4,5 +4,8 @@
 
     <string name="olvido_su_contrase_a">¿Olvido su contraseña?</string>
     <string name="registrarse">Registrarse</string>
+    <string name="usuario">USUARIO</string>
+    <string name="ingresar">INGRESAR</string>
+    <string name="contrase_a">CONTRASEÑA</string>
 
 </resources>
