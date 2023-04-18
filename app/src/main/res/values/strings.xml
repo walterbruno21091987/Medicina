@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Medicine</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="olvido_su_contrase_a">¿Olvido su contraseña?</string>
+    <string name="registrarse">Registrarse</string>
+
+</resources>
