@@ -7,5 +7,18 @@
     <fragment
         android:id="@+id/logIn"
         android:name="com.example.medicine.ui.LogIn"
-        android:label="LogIn" />
+        android:label="LogIn"
+        >
+        <action
+            android:id="@+id/action_logIn_to_userMenu"
+            app:destination="@id/userMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/userMenu"
+        android:name="com.example.medicine.ui.UserMenu"
+        android:label="MENU" >
+        <action
+            android:id="@+id/action_userMenu_to_logIn"
+            app:destination="@id/logIn" />
+    </fragment>
 </navigation>
