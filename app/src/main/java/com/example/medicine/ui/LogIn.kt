@@ -1,4 +1,4 @@
-package com.example.medicine
+package com.example.medicine.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.example.medicine.R
 import com.example.medicine.databinding.FragmentLogInBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,7 +39,7 @@ class LogIn : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding= DataBindingUtil.inflate(inflater,R.layout.fragment_log_in,container,false)
+        binding= DataBindingUtil.inflate(inflater, R.layout.fragment_log_in,container,false)
         return binding.root
     }
 

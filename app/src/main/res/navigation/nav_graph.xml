@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/logIn"
-        android:name="com.example.medicine.LogIn"
+        android:name="com.example.medicine.ui.LogIn"
         android:label="LogIn" />
 </navigation>
