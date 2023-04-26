@@ -8,8 +8,50 @@
     tools:context="ui.UserMenu"
     android:orientation="vertical"
     >
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_credencial"
+        android:layout_width="115dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="60dp"
+        android:background="@drawable/ic_sacar_turno"/>
 
-<LinearLayout
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_consulta_online"
+        android:layout_width="115dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="60dp"
+        android:background="@drawable/ic_historial_turnos"/>
+
+
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/credencial"
+            android:layout_marginStart="75dp"
+            app:fontFamily="sans-serif-black"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/consulta_online"
+            android:layout_marginStart="70dp"
+            app:fontFamily="sans-serif-black"/>
+    </LinearLayout>
+
+
+    <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     >
@@ -46,7 +88,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PROXIMOS TURNOS"
+        android:text="@string/proximos_turnos"
         android:layout_marginStart="60dp"
         app:fontFamily="sans-serif-black"/>
   </LinearLayout>

@@ -11,5 +11,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sacar_turno">sacar turno</string>
     <string name="turnos">NUEVO TURNO</string>
+    <string name="credencial">CREDENCIAL</string>
+    <string name="consulta_online">CONSULTA ONLINE</string>
+    <string name="proximos_turnos">PROXIMOS TURNOS</string>
 
 </resources>
