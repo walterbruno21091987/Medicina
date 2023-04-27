@@ -7,7 +7,15 @@
     android:layout_height="match_parent"
     tools:context="ui.UserMenu"
     android:orientation="vertical"
+    android:background="#2D86B3"
     >
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="115dp"
+        android:src="@drawable/logonicimedico"
+        android:scaleType="centerCrop"
+        />
     <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -28,7 +36,7 @@
         android:layout_height="104dp"
         android:layout_marginTop="80dp"
         android:layout_marginStart="60dp"
-        android:background="@drawable/ic_historial_turnos"/>
+        android:background="@drawable/ic_consulta_online"/>
 
 
 
@@ -91,9 +99,22 @@
         android:text="@string/proximos_turnos"
         android:layout_marginStart="60dp"
         app:fontFamily="sans-serif-black"/>
+
   </LinearLayout>
 
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_salir"
+        android:layout_width="60dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/ic_salir" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cerrar sesion"
+        android:layout_marginStart="290dp"
+        app:fontFamily="sans-serif-black"/>
 
 </LinearLayout>
 </layout>
