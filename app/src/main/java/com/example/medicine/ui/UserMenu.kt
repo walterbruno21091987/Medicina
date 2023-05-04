@@ -1,11 +1,13 @@
 package com.example.medicine.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentUserMenuBinding
 
@@ -43,7 +45,10 @@ class UserMenu : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+   binding.btSalir.setOnClickListener {
 
+       findNavController().navigate(R.id.action_userMenu_to_logIn)
+   }
     }
 
     companion object {

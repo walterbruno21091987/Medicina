@@ -108,7 +108,8 @@
         android:layout_height="61dp"
         android:layout_marginStart="300dp"
         android:layout_marginTop="90dp"
-        android:background="@drawable/ic_salir" />
+
+      />
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

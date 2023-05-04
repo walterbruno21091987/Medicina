@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentLogInBinding
 
@@ -46,6 +47,9 @@ class LogIn : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       binding.btIngresar.setOnClickListener {
+           findNavController().navigate(R.id.action_logIn_to_userMenu)
+       }
         binding.tvOlvidoContrasenia.setOnClickListener {
             binding.tvOlvidoContrasenia.setTextColor(Color.MAGENTA)
               }
