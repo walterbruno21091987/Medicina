@@ -22,4 +22,8 @@ object TurnoRepository {
     fun add(newShifts:Turno): Boolean {
         return turnos.add(newShifts)
     }
+
+    fun getForNumberTurn(numTurno: Int): List<Turno> {
+     return turnos.filter{ it.getnumTurno() == numTurno }
+    }
 }
