@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:background="#37B199"
             android:hint="@string/usuario"
+            android:inputType="number"
 
             />
     </com.google.android.material.textfield.TextInputLayout>

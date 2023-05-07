@@ -7,10 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentLogInBinding
+import com.example.medicine.exception.EntryEmptyException
+import com.example.medicine.repository.UsuarioReposirory
+import com.google.firebase.analytics.FirebaseAnalytics
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +32,7 @@ class LogIn : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var binding:FragmentLogInBinding
+    lateinit var firebaseAnalytics:FirebaseAnalytics
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -48,7 +54,10 @@ class LogIn : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
        binding.btIngresar.setOnClickListener {
-           findNavController().navigate(R.id.action_logIn_to_userMenu)
+           try{     if(login()) navigateMenuUser()
+           }catch (e:EntryEmptyException){
+               Toast.makeText(context,e.message,Toast.LENGTH_LONG).show()
+           }
        }
         binding.tvOlvidoContrasenia.setOnClickListener {
             binding.tvOlvidoContrasenia.setTextColor(Color.MAGENTA)
@@ -57,6 +66,21 @@ class LogIn : Fragment() {
             binding.tvRegistrarse.setTextColor(Color.MAGENTA)
         }
     }
+
+    private fun login(): Boolean{
+     if(binding.etUser.text!!.isEmpty()){
+          throw EntryEmptyException("Debe Ingresar Un Usuario")
+      }
+     var loginCorrecto=true
+        return loginCorrecto
+    }
+
+    private fun navigateMenuUser() {
+        val dni=binding.etUser.text.toString().toInt()
+        val bundle= bundleOf("DNI" to dni)
+        findNavController().navigate(R.id.action_logIn_to_userMenu,bundle)
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

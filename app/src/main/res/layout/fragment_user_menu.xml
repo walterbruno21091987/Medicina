@@ -26,7 +26,8 @@
         android:layout_height="104dp"
         android:layout_marginTop="80dp"
         android:layout_marginStart="60dp"
-        android:background="@drawable/ic_credencial"/>
+        android:background="@drawable/ic_credencial"
+        android:foreground="?android:attr/selectableItemBackground"/>
 
 
 
@@ -36,7 +37,8 @@
         android:layout_height="104dp"
         android:layout_marginTop="80dp"
         android:layout_marginStart="60dp"
-        android:background="@drawable/ic_consulta_online"/>
+        android:background="@drawable/ic_consulta_online"
+        android:foreground="?android:attr/selectableItemBackground"/>
 
 
 
@@ -69,7 +71,8 @@
         android:layout_height="104dp"
         android:layout_marginTop="80dp"
         android:layout_marginStart="60dp"
-        android:background="@drawable/ic_sacar_turno"/>
+        android:background="@drawable/ic_sacar_turno"
+        android:foreground="?android:attr/selectableItemBackground"/>
 
 
 
@@ -79,7 +82,8 @@
         android:layout_height="104dp"
         android:layout_marginTop="80dp"
         android:layout_marginStart="60dp"
-        android:background="@drawable/ic_historial_turnos"/>
+        android:background="@drawable/ic_historial_turnos"
+        android:foreground="?android:attr/selectableItemBackground"/>
 
 
 
@@ -108,6 +112,8 @@
         android:layout_height="61dp"
         android:layout_marginStart="300dp"
         android:layout_marginTop="90dp"
+        android:background="@drawable/ic_salir"
+        android:foreground="?android:attr/selectableItemBackground"
 
       />
     <androidx.appcompat.widget.AppCompatTextView

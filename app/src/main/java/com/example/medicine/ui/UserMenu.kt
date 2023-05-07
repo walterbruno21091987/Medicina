@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentUserMenuBinding
+import com.google.firebase.analytics.FirebaseAnalytics
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +27,7 @@ class UserMenu : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var binding:FragmentUserMenuBinding
-
+    lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
