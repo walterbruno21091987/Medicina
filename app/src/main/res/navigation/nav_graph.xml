@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_logIn_to_userMenu"
             app:destination="@id/userMenu" />
+        <action
+            android:id="@+id/action_logIn_to_registrarUsuarioFragment"
+            app:destination="@id/registrarUsuarioFragment" />
     </fragment>
     <fragment
         android:id="@+id/userMenu"
@@ -19,6 +22,14 @@
         android:label="MENU" >
         <action
             android:id="@+id/action_userMenu_to_logIn"
+            app:destination="@id/logIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrarUsuarioFragment"
+        android:name="com.example.medicine.ui.RegistrarUsuarioFragment"
+        android:label="RegistrarUsuarioFragment" >
+        <action
+            android:id="@+id/action_registrarUsuarioFragment_to_logIn"
             app:destination="@id/logIn" />
     </fragment>
 </navigation>

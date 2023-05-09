@@ -16,6 +16,10 @@ import com.example.medicine.databinding.FragmentLogInBinding
 import com.example.medicine.exception.EntryEmptyException
 import com.example.medicine.repository.UsuarioReposirory
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,12 +68,16 @@ class LogIn : Fragment() {
               }
         binding.tvRegistrarse.setOnClickListener {
             binding.tvRegistrarse.setTextColor(Color.MAGENTA)
+            findNavController().navigate(R.id.action_logIn_to_registrarUsuarioFragment)
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun login(): Boolean{
      if(binding.etUser.text!!.isEmpty()){
+
           throw EntryEmptyException("Debe Ingresar Un Usuario")
+
       }
      var loginCorrecto=true
         return loginCorrecto
