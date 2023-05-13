@@ -1,6 +1,5 @@
 package com.example.medicine.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentUserMenuBinding
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,6 +42,12 @@ class UserMenu : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        firebaseAnalytics= Firebase.analytics
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
+            val screenName="userMenuFragment"
+            param(FirebaseAnalytics.Param.SCREEN_NAME,screenName)
+            param(FirebaseAnalytics.Param.SCREEN_CLASS,"UserMenuFragment")
+        }
        binding= DataBindingUtil.inflate(inflater,R.layout.fragment_user_menu,container,false)
         return binding.root
     }
