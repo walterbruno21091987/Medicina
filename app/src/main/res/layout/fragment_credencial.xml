@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+        android:background="#F6F1C0"
+    tools:context=".CredencialFragment">
+
+
+        <ImageView
+            android:id="@+id/im_usario"
+            android:layout_width="120dp"
+            android:layout_height="109dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="56dp"
+            android:src="@drawable/iconopersona"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_titulo_nombre_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="56dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/nombre"
+            app:layout_constraintStart_toEndOf="@id/im_usario"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_titulo_apellido_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="sans-serif-black"
+            android:text="APELLIDO"
+            app:layout_constraintStart_toEndOf="@id/im_usario"
+            app:layout_constraintTop_toTopOf="@id/tv_titulo_nombre_usuario" />
+        <TextView
+            android:id="@+id/tv_titulo_dni_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="sans-serif-black"
+            android:text="DNI"
+            app:layout_constraintStart_toEndOf="@id/im_usario"
+            app:layout_constraintTop_toTopOf="@id/tv_titulo_apellido_usuario" />
+        <TextView
+            android:id="@+id/tv_titulo_numero_afiliado_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="sans-serif-black"
+            android:text="AFILIADO NRO"
+            app:layout_constraintStart_toEndOf="@id/im_usario"
+            app:layout_constraintTop_toTopOf="@id/tv_titulo_dni_usuario" />
+        <TextView
+            android:id="@+id/tv_nombre_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="56dp"
+
+
+            app:layout_constraintStart_toEndOf="@id/tv_titulo_nombre_usuario"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_apellido_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+
+
+            app:layout_constraintStart_toEndOf="@id/tv_titulo_apellido_usuario"
+            app:layout_constraintTop_toTopOf="@id/tv_nombre_usuario" />
+        <TextView
+            android:id="@+id/tv_dni_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+
+
+            app:layout_constraintStart_toEndOf="@id/tv_titulo_dni_usuario"
+            app:layout_constraintTop_toTopOf="@id/tv_apellido_usuario" />
+        <TextView
+            android:id="@+id/tv_numero_afiliado_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+
+
+            app:layout_constraintStart_toEndOf="@id/tv_titulo_numero_afiliado_usuario"
+            app:layout_constraintTop_toTopOf="@id/tv_dni_usuario" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

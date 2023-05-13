@@ -14,5 +14,6 @@
     <string name="credencial">CREDENCIAL</string>
     <string name="consulta_online">CONSULTA ONLINE</string>
     <string name="proximos_turnos">PROXIMOS TURNOS</string>
+    <string name="nombre">NOMBRE</string>
 
 </resources>

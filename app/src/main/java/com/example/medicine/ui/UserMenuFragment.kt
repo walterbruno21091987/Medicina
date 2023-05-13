@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
@@ -54,22 +55,28 @@ class UserMenu : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-   binding.btSalir.setOnClickListener {
 
-       findNavController().navigate(R.id.action_userMenu_to_logIn)
-   }
+
+        listener()
+
+    }
+
+    private fun listener() {
+        binding.btSalir.setOnClickListener {
+
+            findNavController().navigate(R.id.action_userMenu_to_logIn)
+        }
+        binding.btCredencial.setOnClickListener {
+            val bundle= arguments?.getInt("DNI")?:0
+            val dniUser= bundleOf("DNI_USER" to bundle)
+            findNavController().navigate(R.id.action_userMenu_to_credencialFragment,dniUser)
+        }
+
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UserMenu.
-         */
-        // TODO: Rename and change types and number of parameters
+
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             UserMenu().apply {

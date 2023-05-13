@@ -3,7 +3,7 @@ package com.example.medicine.entities
 import com.example.medicine.R
 import com.example.medicine.repository.TurnoRepository
 
-class Usuario(nombre:String, apellido:String, dni:Int,val contrasenia:String,val numberAfiliado:Int,val imageUser: Int = R.drawable.iconopersona):Persona(nombre,apellido,dni) {
+class Usuario(nombre:String, apellido:String, dni:Int,val contrasenia:String,val numberAfiliado:Int,val imageUser:Int =R.drawable.iconopersona):Persona(nombre,apellido,dni) {
 
     fun reservarTurno(numTurno:Int){
         val turno=TurnoRepository.getForNumberTurn(numTurno).first()

@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_userMenu_to_logIn"
             app:destination="@id/logIn" />
+        <action
+            android:id="@+id/action_userMenu_to_credencialFragment"
+            app:destination="@id/credencialFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrarUsuarioFragment"
@@ -31,5 +34,13 @@
         <action
             android:id="@+id/action_registrarUsuarioFragment_to_logIn"
             app:destination="@id/logIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/credencialFragment"
+        android:name="com.example.medicine.ui.CredencialFragment"
+        android:label="CredencialFragment" >
+        <action
+            android:id="@+id/action_credencialFragment_to_userMenu"
+            app:destination="@id/userMenu" />
     </fragment>
 </navigation>

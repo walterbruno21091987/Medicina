@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentLogInBinding
 import com.example.medicine.exception.EntryEmptyException
+import com.example.medicine.repository.UsuarioReposirory
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -57,16 +58,21 @@ class LogIn : Fragment() {
             param(FirebaseAnalytics.Param.SCREEN_CLASS,"loginFragment")
         }
 
-       binding.btIngresar.setOnClickListener {
-           try{     if(login()) navigateMenuUser()
-           }catch (e:EntryEmptyException){
-               Toast.makeText(context,e.message,Toast.LENGTH_LONG).show()
-               FirebaseCrashlytics.getInstance().recordException(e)
-           }
-       }
+        listener()
+    }
+
+    private fun listener() {
+        binding.btIngresar.setOnClickListener {
+            try {
+                if (login()) navigateMenuUser()
+            } catch (e: EntryEmptyException) {
+                Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+                FirebaseCrashlytics.getInstance().recordException(e)
+            }
+        }
         binding.tvOlvidoContrasenia.setOnClickListener {
             binding.tvOlvidoContrasenia.setTextColor(Color.MAGENTA)
-              }
+        }
         binding.tvRegistrarse.setOnClickListener {
             binding.tvRegistrarse.setTextColor(Color.MAGENTA)
             findNavController().navigate(R.id.action_logIn_to_registrarUsuarioFragment)
@@ -78,7 +84,15 @@ class LogIn : Fragment() {
      if(binding.etUser.text!!.isEmpty()){
          throw EntryEmptyException("Debe Ingresar Un Usuario")
      }
-     var loginCorrecto=true
+     var loginCorrecto=false
+        val dni=binding.etUser.text.toString().toInt()
+
+        try{if(binding.etPasword.text.toString()==UsuarioReposirory.get(dni).contrasenia){
+            loginCorrecto=true
+        }}catch (e:NoSuchElementException){
+            Toast.makeText(context,"NO EXISTE EL USUARIO",Toast.LENGTH_LONG).show()
+            FirebaseCrashlytics.getInstance().recordException(e)
+        }
         return loginCorrecto
     }
 
@@ -86,6 +100,7 @@ class LogIn : Fragment() {
         val dni=binding.etUser.text.toString().toInt()
         val bundle= bundleOf("DNI" to dni)
         findNavController().navigate(R.id.action_logIn_to_userMenu,bundle)
+
     }
 
     companion object {
