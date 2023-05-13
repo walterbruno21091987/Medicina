@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentRegistrarUsuarioBinding
 import com.example.medicine.entities.Usuario
 import com.example.medicine.exception.EntryEmptyException
 import com.example.medicine.exception.InsecurePasswordException
+import com.example.medicine.repository.UsuarioReposirory
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -59,23 +61,32 @@ class RegistrarUsuarioFragment : Fragment() {
     }
 
     private fun listener() {
+
+    //REGISTRARSE
         binding.btRegistrar.setOnClickListener {
             try {
                 try {
-                    registrerUser()
+                   if(registrerUser())  {
+                       Toast.makeText(context,"USUARIO AGREGADO",Toast.LENGTH_LONG).show()
+                       findNavController().navigate(R.id.action_registrarUsuarioFragment_to_logIn)}
                 } catch (e: InsecurePasswordException) {
                     Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
-                    FirebaseCrashlytics.getInstance().recordException(e)
-                }
-            } catch (ex: EntryEmptyException) {
+                    FirebaseCrashlytics.getInstance().recordException(e) }
+                } catch (ex: EntryEmptyException) {
                 Toast.makeText(context, ex.message, Toast.LENGTH_LONG).show()
-                FirebaseCrashlytics.getInstance().recordException(ex)
-
-            }
+                FirebaseCrashlytics.getInstance().recordException(ex)  }
         }
+
+
+
+
+
     }
 
-    private fun registrerUser() {
+
+
+
+    private fun registrerUser():Boolean {
         fieldValidation()
         val userDni=binding.etUserRegister.text.toString().toInt()
       val password=binding.etPasswordRegister.text.toString()
@@ -83,13 +94,25 @@ class RegistrarUsuarioFragment : Fragment() {
       val nombre=binding.etNameRegister.text.toString()
       val apellido=binding.etSurnameRegister.text.toString()
       val numeroAfiliado=binding.numeroDeAfiliado.text.toString().toInt()
-
+        val user=Usuario(nombre,apellido,userDni,password,numeroAfiliado)
+        return (UsuarioReposirory.add(user))
     }
+
+
+
+
     private fun fieldValidation() {
         if (binding.etUserRegister.text!!.isEmpty() || binding.etNameRegister.text!!.isEmpty() || binding.etSurnameRegister.text!!.isEmpty() || binding.numeroDeAfiliado.text!!.isEmpty()) {
             throw EntryEmptyException("debe completar todos los campos")
         }
     }
+
+
+
+
+
+
+
 
     companion object {
         @JvmStatic

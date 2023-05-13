@@ -42,7 +42,7 @@ class LogIn : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        firebaseAnalytics=Firebase.analytics
         binding= DataBindingUtil.inflate(inflater, R.layout.fragment_log_in,container,false)
         return binding.root
     }
@@ -50,12 +50,13 @@ class LogIn : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        firebaseAnalytics=Firebase.analytics
+
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
             val screenName="login"
             param(FirebaseAnalytics.Param.SCREEN_NAME,screenName)
             param(FirebaseAnalytics.Param.SCREEN_CLASS,"loginFragment")
         }
+
        binding.btIngresar.setOnClickListener {
            try{     if(login()) navigateMenuUser()
            }catch (e:EntryEmptyException){
