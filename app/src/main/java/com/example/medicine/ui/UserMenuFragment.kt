@@ -67,9 +67,9 @@ class UserMenu : Fragment() {
             findNavController().navigate(R.id.action_userMenu_to_logIn)
         }
         binding.btCredencial.setOnClickListener {
-            val bundle= arguments?.getInt("DNI")?:0
-            val dniUser= bundleOf("DNI_USER" to bundle)
-            findNavController().navigate(R.id.action_userMenu_to_credencialFragment,dniUser)
+            val bundle= arguments?.getString("EMAIL")
+            val email= bundleOf("EMAIL" to bundle)
+            findNavController().navigate(R.id.action_userMenu_to_credencialFragment,email)
         }
 
     }

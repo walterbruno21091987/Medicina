@@ -1,14 +1,15 @@
 package com.example.medicine.repository
 import com.example.medicine.entities.Usuario
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 object UsuarioReposirory {
     private var users : MutableList<Usuario> = mutableListOf()
     init {
 
     }
-    fun get(dni: Int) : Usuario {
-
-        return users.first { it.dni == dni }
+    fun get(email: String) : Usuario {
+        return users.first { it.email == email }
     }
 
     /*fun get() : MutableList<Usuario> {

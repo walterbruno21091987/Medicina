@@ -85,9 +85,9 @@ class LogIn : Fragment() {
          throw EntryEmptyException("Debe Ingresar Un Usuario")
      }
      var loginCorrecto=false
-        val dni=binding.etUser.text.toString().toInt()
+        val email=binding.etUser.text.toString()
 
-        try{if(binding.etPasword.text.toString()==UsuarioReposirory.get(dni).contrasenia){
+        try{if(binding.etPasword.text.toString()==UsuarioReposirory.get(email).contrasenia){
             loginCorrecto=true
         }}catch (e:NoSuchElementException){
             Toast.makeText(context,"NO EXISTE EL USUARIO",Toast.LENGTH_LONG).show()
@@ -97,8 +97,8 @@ class LogIn : Fragment() {
     }
 
     private fun navigateMenuUser() {
-        val dni=binding.etUser.text.toString().toInt()
-        val bundle= bundleOf("DNI" to dni)
+        val email=binding.etUser.text.toString()
+        val bundle= bundleOf("EMAIL" to email)
         findNavController().navigate(R.id.action_logIn_to_userMenu,bundle)
 
     }

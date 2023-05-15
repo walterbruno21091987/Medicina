@@ -9,9 +9,9 @@ object TurnoRepository {
     init {
 
     }
-    fun getForUser(dni: Int) : List<Turno> {
+    fun getForUser(email: String) : List<Turno> {
         val turnosDisponibles= turnos.filter { it.disponible==false }
-        return  turnosDisponibles.filter { it.carnetAfiliado!!.equals(UsuarioReposirory.get(dni).numberAfiliado) }
+        return  turnosDisponibles.filter { it.carnetAfiliado!!.equals(UsuarioReposirory.get(email).numberAfiliado) }
     }
 
     fun getMedicalShiftsAvailable() : List<Turno> {

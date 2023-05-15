@@ -88,13 +88,14 @@ class RegistrarUsuarioFragment : Fragment() {
 
     private fun registrerUser():Boolean {
         fieldValidation()
-        val userDni=binding.etUserRegister.text.toString().toInt()
+        val email=binding.etUserRegister.text.toString()
       val password=binding.etPasswordRegister.text.toString()
         if(Usuario.validatePassword(password)==false) throw InsecurePasswordException("la contraseña debe tener almenos 8 caracteres,una mayuscula y un numero")
       val nombre=binding.etNameRegister.text.toString()
       val apellido=binding.etSurnameRegister.text.toString()
       val numeroAfiliado=binding.numeroDeAfiliado.text.toString().toInt()
-        val user=Usuario(nombre,apellido,userDni,password,numeroAfiliado)
+     val dni=binding.etDniUser.text.toString().toInt()
+        val user=Usuario(nombre,apellido,dni,email,password,numeroAfiliado)
         return (UsuarioReposirory.add(user))
     }
 

@@ -15,5 +15,6 @@
     <string name="consulta_online">CONSULTA ONLINE</string>
     <string name="proximos_turnos">PROXIMOS TURNOS</string>
     <string name="nombre">NOMBRE</string>
+    <string name="email">EMAIL</string>
 
 </resources>
