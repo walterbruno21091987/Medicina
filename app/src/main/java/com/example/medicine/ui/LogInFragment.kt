@@ -14,10 +14,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentLogInBinding
 import com.example.medicine.exception.EntryEmptyException
+import com.example.medicine.exception.LoginFailedException
 import com.example.medicine.repository.UsuarioReposirory
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
 
@@ -31,6 +33,7 @@ class LogIn : Fragment() {
     private var param2: String? = null
     lateinit var binding:FragmentLogInBinding
     lateinit var firebaseAnalytics:FirebaseAnalytics
+    lateinit var firebaseAuth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -44,6 +47,7 @@ class LogIn : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         firebaseAnalytics=Firebase.analytics
+
         binding= DataBindingUtil.inflate(inflater, R.layout.fragment_log_in,container,false)
         return binding.root
     }
@@ -64,7 +68,7 @@ class LogIn : Fragment() {
     private fun listener() {
         binding.btIngresar.setOnClickListener {
             try {
-                if (login()) navigateMenuUser()
+                login()
             } catch (e: EntryEmptyException) {
                 Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
                 FirebaseCrashlytics.getInstance().recordException(e)
@@ -80,20 +84,26 @@ class LogIn : Fragment() {
     }
 
     @SuppressLint("SuspiciousIndentation")
-    private fun login(): Boolean{
-     if(binding.etUser.text!!.isEmpty()){
-         throw EntryEmptyException("Debe Ingresar Un Usuario")
+    private fun login(){
+        var loginCorrecto=false
+        firebaseAuth=FirebaseAuth.getInstance()
+        if(binding.etUser.text!!.isEmpty()){
+         throw EntryEmptyException("Debe Ingresar Un Email")
      }
-     var loginCorrecto=false
-        val email=binding.etUser.text.toString()
 
-        try{if(binding.etPasword.text.toString()==UsuarioReposirory.get(email).contrasenia){
-            loginCorrecto=true
-        }}catch (e:NoSuchElementException){
-            Toast.makeText(context,"NO EXISTE EL USUARIO",Toast.LENGTH_LONG).show()
-            FirebaseCrashlytics.getInstance().recordException(e)
-        }
-        return loginCorrecto
+        val email=binding.etUser.text.toString()
+        val password=binding.etPasword.text.toString()
+    firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener (requireActivity()){
+ try{if(it.isSuccessful){
+            navigateMenuUser()}
+ else{
+     throw LoginFailedException("USUARIO O CONTRASEÑA INCORRECTO")
+
+ }}catch (e:LoginFailedException){
+     Toast.makeText(context,e.message,Toast.LENGTH_LONG).show()
+     FirebaseCrashlytics.getInstance().recordException(e)
+ }
+    }
     }
 
     private fun navigateMenuUser() {

@@ -1,5 +1,6 @@
 package com.example.medicine.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
 
@@ -29,6 +31,7 @@ class RegistrarUsuarioFragment : Fragment() {
     private var param2: String? = null
     lateinit var binding:FragmentRegistrarUsuarioBinding
     lateinit var firebaseAnalytics: FirebaseAnalytics
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,7 @@ class RegistrarUsuarioFragment : Fragment() {
         // Inflate the layout for this fragment
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_registrar_usuario,container,false)
        firebaseAnalytics=Firebase.analytics
+
 
         return binding.root
     }
@@ -86,8 +90,11 @@ class RegistrarUsuarioFragment : Fragment() {
 
 
 
+    @SuppressLint("SuspiciousIndentation")
     private fun registrerUser():Boolean {
+       var usuarioCreado=false
         fieldValidation()
+
         val email=binding.etUserRegister.text.toString()
       val password=binding.etPasswordRegister.text.toString()
         if(Usuario.validatePassword(password)==false) throw InsecurePasswordException("la contraseña debe tener almenos 8 caracteres,una mayuscula y un numero")
@@ -96,7 +103,8 @@ class RegistrarUsuarioFragment : Fragment() {
       val numeroAfiliado=binding.numeroDeAfiliado.text.toString().toInt()
      val dni=binding.etDniUser.text.toString().toInt()
         val user=Usuario(nombre,apellido,dni,email,password,numeroAfiliado)
-        return (UsuarioReposirory.add(user))
+        usuarioCreado=UsuarioReposirory.add(user)
+        return usuarioCreado
     }
 
 

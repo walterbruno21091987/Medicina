@@ -41,7 +41,7 @@ class CredencialFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val email=arguments?.getString("EMAIL")?:""
+        val email=arguments?.getString("EMAIL_USER")?:""
 
         val user=UsuarioReposirory.get(email)
       if(email!=""){
