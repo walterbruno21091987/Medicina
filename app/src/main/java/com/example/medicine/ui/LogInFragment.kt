@@ -76,6 +76,7 @@ class LogIn : Fragment() {
         }
         binding.tvOlvidoContrasenia.setOnClickListener {
             binding.tvOlvidoContrasenia.setTextColor(Color.MAGENTA)
+            findNavController().navigate(R.id.action_logIn_to_recoverPasswordFragment)
         }
         binding.tvRegistrarse.setOnClickListener {
             binding.tvRegistrarse.setTextColor(Color.MAGENTA)

@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_logIn_to_registrarUsuarioFragment"
             app:destination="@id/registrarUsuarioFragment" />
+        <action
+            android:id="@+id/action_logIn_to_recoverPasswordFragment"
+            app:destination="@id/recoverPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/userMenu"
@@ -42,5 +45,13 @@
         <action
             android:id="@+id/action_credencialFragment_to_userMenu"
             app:destination="@id/userMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/recoverPasswordFragment"
+        android:name="com.example.medicine.ui.RecoverPasswordFragment"
+        android:label="RecoverPasswordFragment" >
+        <action
+            android:id="@+id/action_recoverPasswordFragment_to_logIn"
+            app:destination="@id/logIn" />
     </fragment>
 </navigation>

@@ -14,6 +14,7 @@ firebaseAuth=FirebaseAuth.getInstance()
     //traer de la firebase por que rompe//
     fun get(email: String) : Usuario {
         return users.first { it.email == email }
+
     }
 
     /*fun get() : MutableList<Usuario> {
