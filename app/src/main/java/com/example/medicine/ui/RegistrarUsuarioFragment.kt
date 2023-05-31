@@ -11,15 +11,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentRegistrarUsuarioBinding
-import com.example.medicine.entities.Usuario
+import com.example.medicine.entities.Affiliate
 import com.example.medicine.exception.EntryEmptyException
 import com.example.medicine.exception.InsecurePasswordException
-import com.example.medicine.repository.UsuarioReposirory
-import com.google.android.material.snackbar.Snackbar
+import com.example.medicine.repository.AffiliateRepository
+import com.example.medicine.repository.UserRepository
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
 
@@ -92,19 +91,22 @@ class RegistrarUsuarioFragment : Fragment() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun registrerUser():Boolean {
-       var usuarioCreado=false
+       var createdAffiliated=false
+        var createdUser=false
         fieldValidation()
 
         val email=binding.etUserRegister.text.toString()
       val password=binding.etPasswordRegister.text.toString()
-        if(Usuario.validatePassword(password)==false) throw InsecurePasswordException("la contraseña debe tener almenos 8 caracteres,una mayuscula y un numero")
+        if(Affiliate.validatePassword(password)==false) throw InsecurePasswordException("la contraseña debe tener almenos 8 caracteres,una mayuscula y un numero")
       val nombre=binding.etNameRegister.text.toString()
       val apellido=binding.etSurnameRegister.text.toString()
       val numeroAfiliado=binding.numeroDeAfiliado.text.toString().toInt()
      val dni=binding.etDniUser.text.toString().toInt()
-        val user=Usuario(nombre,apellido,dni,email,password,numeroAfiliado)
-        usuarioCreado=UsuarioReposirory.add(user)
-        return usuarioCreado
+        val affiliate=Affiliate(nombre,apellido,dni,email,numeroAfiliado)
+        createdAffiliated=AffiliateRepository.add(affiliate)
+        createdUser=UserRepository.add(affiliate, password)
+
+        return createdAffiliated && createdUser
     }
 
 

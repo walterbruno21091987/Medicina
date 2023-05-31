@@ -1,6 +1,6 @@
 package com.example.medicine.entities
 
-enum class Especialidad  {
+enum class Specialty  {
     CARDIOLOGIA,
     ODONTOLOGIA,
     TRAUMATOLOGIA,

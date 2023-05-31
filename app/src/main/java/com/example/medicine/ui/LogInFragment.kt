@@ -15,7 +15,6 @@ import com.example.medicine.R
 import com.example.medicine.databinding.FragmentLogInBinding
 import com.example.medicine.exception.EntryEmptyException
 import com.example.medicine.exception.LoginFailedException
-import com.example.medicine.repository.UsuarioReposirory
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent

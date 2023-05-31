@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentRecoverPasswordBinding
+import com.example.medicine.exception.EntryEmptyException
 import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,25 +45,35 @@ private lateinit var binding:FragmentRecoverPasswordBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btEnviarMailRecoverPassword.setOnClickListener {
-            val email=binding.etRecoverPassword.text.toString()
-            firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener {
-       Toast.makeText(context," REVISE SU CASILLA DE CORREO",Toast.LENGTH_LONG).show()
-            }
-        }
+        listener()
 
     }
 
+    private fun listener() {
+        binding.btEnviarMailRecoverPassword.setOnClickListener {
+            val email = binding.etRecoverPassword.text.toString()
+            try {
+                if (email.isEmpty()) {
+                    throw EntryEmptyException("DEBE INGRESAR UN MAIL")
+                } else {
+                    firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener {
+
+                        Toast.makeText(context, " REVISE SU CASILLA DE CORREO", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                }
+            } catch (e: EntryEmptyException) {
+                Toast.makeText(context, "DEBE INGRESAR UN MAIL", Toast.LENGTH_LONG).show()
+            }
+
+        }
+        binding.btSalir.setOnClickListener {
+            findNavController().navigate(R.id.action_recoverPasswordFragment_to_logIn)
+        }
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RecoverPasswordFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             RecoverPasswordFragment().apply {

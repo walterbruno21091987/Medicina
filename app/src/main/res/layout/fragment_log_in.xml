@@ -40,7 +40,7 @@
             android:id="@+id/et_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#37B199"
+            android:background="@color/backgroundColorText"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
 
@@ -60,7 +60,7 @@
             android:id="@+id/et_pasword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#37B199"
+            android:background="@color/backgroundColorText"
             android:hint="@string/contrase_a"
             android:inputType="textPassword"
 
@@ -97,7 +97,7 @@
         android:layout_marginTop="30dp"
         android:clickable="true"
         android:focusable="true"
-        android:text="@string/registrarse"
+        android:text= "@string/registrarse"
         android:textColor="#D10E0E"
         tools:ignore="TouchTargetSizeCheck" />
 

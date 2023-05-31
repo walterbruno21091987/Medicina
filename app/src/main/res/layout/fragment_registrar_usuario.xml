@@ -22,7 +22,7 @@
                 android:id="@+id/et_user_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#37B199"
+                android:background="@color/backgroundColorText"
                 android:hint="EMAIL"
                 android:inputType="textEmailAddress"
 
@@ -43,7 +43,7 @@
                 android:id="@+id/et_name_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#37B199"
+                android:background="@color/backgroundColorText"
                 android:hint="NOMBRE"
 
                 />
@@ -62,7 +62,7 @@
                 android:id="@+id/et_surname_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#37B199"
+                android:background="@color/backgroundColorText"
                 android:hint="APELLIDO"
 
                 />
@@ -81,7 +81,7 @@
                 android:id="@+id/et_dni_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#37B199"
+                android:background="@color/backgroundColorText"
                 android:hint="DNI"
                 android:inputType="number"
 
@@ -102,7 +102,7 @@
                 android:id="@+id/et_password_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#37B199"
+                android:background="@color/backgroundColorText"
                 android:hint="@string/contrase_a"
                 android:inputType="textPassword"
 
@@ -122,7 +122,7 @@
                 android:id="@+id/numero_de_afiliado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#37B199"
+                android:background="@color/backgroundColorText"
                 android:hint="NUMERO DE AFILIADO"
                 android:inputType="textPassword"
 

@@ -8,5 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red_custom">#D10E0E</color>
+    <color name="backgroundColorText">#37B199</color>
+    <color name="backgroundLayout">#2D86B3</color>
 
 </resources>

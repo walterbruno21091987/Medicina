@@ -16,5 +16,6 @@
     <string name="proximos_turnos">PROXIMOS TURNOS</string>
     <string name="nombre">NOMBRE</string>
     <string name="email">EMAIL</string>
+    <string name="especialidad">Especialidad</string>
 
 </resources>
