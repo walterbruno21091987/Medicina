@@ -12,14 +12,16 @@ import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentRegistrarUsuarioBinding
 import com.example.medicine.entities.Affiliate
+import com.example.medicine.entities.User
 import com.example.medicine.exception.EntryEmptyException
 import com.example.medicine.exception.InsecurePasswordException
-import com.example.medicine.repository.AffiliateRepository
-import com.example.medicine.repository.UserRepository
+
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 private const val ARG_PARAM1 = "param1"
@@ -30,8 +32,8 @@ class RegistrarUsuarioFragment : Fragment() {
     private var param2: String? = null
     lateinit var binding:FragmentRegistrarUsuarioBinding
     lateinit var firebaseAnalytics: FirebaseAnalytics
-
-
+    lateinit var firebaseAuth:FirebaseAuth
+    lateinit var dbRegister:FirebaseFirestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -47,6 +49,8 @@ class RegistrarUsuarioFragment : Fragment() {
         // Inflate the layout for this fragment
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_registrar_usuario,container,false)
        firebaseAnalytics=Firebase.analytics
+        firebaseAuth= FirebaseAuth.getInstance()
+        dbRegister = FirebaseFirestore.getInstance()
 
 
         return binding.root
@@ -69,9 +73,7 @@ class RegistrarUsuarioFragment : Fragment() {
         binding.btRegistrar.setOnClickListener {
             try {
                 try {
-                   if(registrerUser())  {
-                       Toast.makeText(context,"USUARIO AGREGADO",Toast.LENGTH_LONG).show()
-                       findNavController().navigate(R.id.action_registrarUsuarioFragment_to_logIn)}
+                   registrerUser()
                 } catch (e: InsecurePasswordException) {
                     Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
                     FirebaseCrashlytics.getInstance().recordException(e) }
@@ -90,9 +92,8 @@ class RegistrarUsuarioFragment : Fragment() {
 
 
     @SuppressLint("SuspiciousIndentation")
-    private fun registrerUser():Boolean {
-       var createdAffiliated=false
-        var createdUser=false
+    private fun registrerUser() {
+
         fieldValidation()
 
         val email=binding.etUserRegister.text.toString()
@@ -103,10 +104,13 @@ class RegistrarUsuarioFragment : Fragment() {
       val numeroAfiliado=binding.numeroDeAfiliado.text.toString().toInt()
      val dni=binding.etDniUser.text.toString().toInt()
         val affiliate=Affiliate(nombre,apellido,dni,email,numeroAfiliado)
-        createdAffiliated=AffiliateRepository.add(affiliate)
-        createdUser=UserRepository.add(affiliate, password)
+       addlogin(affiliate,password)
+       createDataUser(affiliate)
+        createDataAffiliate(affiliate)
 
-        return createdAffiliated && createdUser
+
+
+
     }
 
 
@@ -118,7 +122,39 @@ class RegistrarUsuarioFragment : Fragment() {
         }
     }
 
+    private fun createDataUser(user: User) {
 
+        val userEntry = hashMapOf(
+            "DNI" to user.dni,
+            "isDoctor" to user.isDoctor,
+            "name" to user.name,
+            "surname" to user.surname,
+            "email" to user.email
+        )
+        dbRegister.collection("users").document(user.email).set(userEntry).addOnCanceledListener {
+            Toast.makeText(context,"NO SE PUDO AGREGAR LOS DATOS A LA BASE DE DATOS",Toast.LENGTH_LONG).show()
+        }
+    }
+    private fun createDataAffiliate(affiliate: Affiliate) {
+
+        val userEntry = hashMapOf(
+            "DNI" to affiliate.dni,
+            "isDoctor" to affiliate.isDoctor,
+            "name" to affiliate.name,
+            "surname" to affiliate.surname,
+            "email" to affiliate.email,
+            "affiliatenumber" to affiliate.affiliatenumber
+        )
+        dbRegister.collection("affiliate").document(affiliate.email).set(userEntry).addOnCanceledListener {
+            Toast.makeText(context,"NO SE PUDO AGREGAR LOS DATOS A LA BASE DE DATOS",Toast.LENGTH_LONG).show()
+        }
+    }
+    private fun addlogin(user: User, password: String) {
+        firebaseAuth.createUserWithEmailAndPassword(user.email, password).addOnSuccessListener {
+            Toast.makeText(context,"USUARIO AGREGADO",Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_registrarUsuarioFragment_to_logIn)
+        }
+    }
 
 
 

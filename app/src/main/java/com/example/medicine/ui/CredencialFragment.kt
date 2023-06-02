@@ -10,7 +10,8 @@ import androidx.databinding.DataBindingUtil
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentCredencialBinding
 import com.example.medicine.entities.Affiliate
-import com.example.medicine.repository.AffiliateRepository
+
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 private const val ARG_PARAM1 = "param1"
@@ -44,18 +45,20 @@ class CredencialFragment : Fragment() {
 
         val email=arguments?.getString("EMAIL_USER")?:""
 
-        val user=AffiliateRepository.get(email)
+
       if(email!=""){
-        render(user)}
+        render(email)}
     }
 
-    private fun render(affiliate: Affiliate) {
-      binding.imUsario.setImageResource(affiliate.imageUser)
-      binding.tvApellidoUsuario.text=affiliate.surname
-        binding.tvNombreUsuario.text=affiliate.name
-        binding.tvDniUsuario.text=affiliate.dni.toString()
-        binding.tvNumeroAfiliadoUsuario.text=affiliate.affiliatenumber.toString()
-    }
+    private fun render(email: String) {
+        val db=FirebaseFirestore.getInstance()
+        db.collection("affiliate").document(email).get().addOnSuccessListener {
+            binding.tvApellidoUsuario.text=it.get("surname").toString()
+            binding.tvNombreUsuario.text=it.get("name").toString()
+            binding.tvDniUsuario.text=it.get("DNI").toString()
+           binding.tvNumeroAfiliadoUsuario.text=it.get("affiliatenumber").toString()
+        }
+      }
 
     companion object {
         /**

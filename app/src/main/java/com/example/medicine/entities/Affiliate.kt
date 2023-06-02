@@ -4,14 +4,19 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.medicine.R
 import com.example.medicine.repository.MedicalShiftRepository
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Affiliate(name:String, surname:String, dni:Int, email:String, val affiliatenumber:Int, val imageUser:Int =R.drawable.iconopersona, isDoctor:Boolean=false):User(name,surname,dni,email,isDoctor) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun bookMedicalShift(numMedicalShift:Int){
         val medicalShift=MedicalShiftRepository.getForNumberTurn(numMedicalShift).first()
-        medicalShift.affiliateCard=affiliatenumber
-        medicalShift.available=false
+        medicalShift.affiliateCard=affiliatenumber//ojo!!! esto se debe modificar en la base de datos
+        medicalShift.available=false//ojo!!! esto se debe modificar en la base de datos
+        val dbChangeData=FirebaseFirestore.getInstance()
+        dbChangeData.collection("medicalShift").document(numMedicalShift.toString()).set(
+            hashMapOf("available" to false,"affiliateCard" to affiliatenumber)
+        )
 
     }
     companion object{
