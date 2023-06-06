@@ -82,7 +82,7 @@
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.962"
-                app:layout_constraintStar_toEndOf="@id/tv_titulo_fecha"
+
                 app:layout_constraintStart_toEndOf="@+id/tv_titulo_hora"
                 app:layout_constraintTop_toBottomOf="@+id/tv_fecha" />
 
