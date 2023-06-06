@@ -23,6 +23,7 @@
         android:hint="@string/especialidad"
         android:background="@color/backgroundColorText"
         app:fontFamily="sans-serif-black"
+
         />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerRepair"

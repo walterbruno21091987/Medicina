@@ -17,5 +17,8 @@
     <string name="nombre">NOMBRE</string>
     <string name="email">EMAIL</string>
     <string name="especialidad">Especialidad</string>
+    <string name="cargando">cargando...</string>
+    <string name="fecha">FECHA</string>
+    <string name="hora">HORA</string>
 
 </resources>
