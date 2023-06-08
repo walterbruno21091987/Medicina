@@ -9,10 +9,7 @@ import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 class MedicalShift (val fecha: LocalDate, val hora:LocalTime, val doctor:Doctor, var numMedicalShift:Int=Math.random().times(100000).toInt(), var affiliateCard:Int?=null, var available:Boolean=true){
-    init {
-        do{
-        numMedicalShift=Math.random().times(100000).toInt()}while(!MedicalShiftRepository.getForNumberTurn(numMedicalShift).isEmpty())
-    }
+
     fun getnumTurno():Int{
         return numMedicalShift
     }
