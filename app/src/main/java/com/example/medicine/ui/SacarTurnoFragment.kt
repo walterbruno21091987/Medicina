@@ -18,6 +18,7 @@ import com.example.medicine.entities.Doctor
 import com.example.medicine.entities.MedicalShift
 import com.example.medicine.entities.Specialty
 import com.example.medicine.exception.EntryEmptyException
+import com.example.medicine.repository.DoctorRepository
 import com.example.medicine.repository.MedicalShiftRepository
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.FirebaseFirestore
@@ -47,13 +48,19 @@ class SacarTurnoFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
      binding=DataBindingUtil.inflate(layoutInflater,R.layout.fragment_sacar_turno, container, false)
+        loadDataMedicalShift()
         return binding.root
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         this.contexto=context
@@ -69,25 +76,7 @@ class SacarTurnoFragment : Fragment() {
 
           binding.recyclerMedicalShift.layoutManager=LinearLayoutManager(contexto)
 
-            val dbmedicaShift=FirebaseFirestore.getInstance()
-            dbmedicaShift.collection("medicalShift").get().addOnSuccessListener {
-                for(document in it) {
-                    val doctor=Doctor("walter","bruno",33252293,"soyDoctor@hotmail.com", Specialty.CARDIOLOGIA)
-                    val year=document.get("year").toString().toInt()
-                    val mont=document.get("mont").toString().toInt()
-                    val day=document.get("day").toString().toInt()
-                    val hour=document.get("hour").toString().toInt()
-                    val minute=document.get("minute").toString().toInt()
-                    val numMedicalShift=document.get("numMedicalShift").toString().toInt()
-                    val numAffiliateCard= document.get("affiliateCard").toString().toInt()
-                    val available=document.get("available").toString().toBoolean()
-                    val medicalShift= MedicalShift(LocalDate.of(year,mont,day), LocalTime.of(hour,minute),doctor,numMedicalShift,numAffiliateCard,available)
-                    MedicalShiftRepository.add(medicalShift)
-                }
-
-                binding.recyclerMedicalShift.adapter=MedicalShiftAdapter(MedicalShiftRepository.getMedicalShiftsAvailable().filter { it.doctor.specialty.name == especialidad },12345678,contexto)
-            }
-
+            binding.recyclerMedicalShift.adapter=MedicalShiftAdapter(MedicalShiftRepository.getMedicalShiftsAvailable().filter { it.doctor.specialty.name == especialidad },12345678,contexto)
 
             }else{
                 throw EntryEmptyException("DEBE INGRESAR UNA ESPECIALIDAD")
@@ -98,7 +87,25 @@ class SacarTurnoFragment : Fragment() {
 
         }
         }
-
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun loadDataMedicalShift() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("medicalShift").get().addOnSuccessListener {
+            for (document in it) {
+                val doctor = DoctorRepository.getDoctorForEmail(document.get("doctor").toString())
+                val year = document.get("year").toString().toInt()
+                val mont = document.get("mont").toString().toInt()
+                val day = document.get("day").toString().toInt()
+                val hour = document.get("hour").toString().toInt()
+                val minute = document.get("minute").toString().toInt()
+                val numMedicalShift = document.get("numMedicalShift").toString().toInt()
+                val numAffiliateCard = document.get("affiliateCard").toString().toInt()
+                val available = document.get("available").toString().toBoolean()
+                val medicalShift = MedicalShift(LocalDate.of(year, mont, day), LocalTime.of(hour, minute), doctor, numMedicalShift, numAffiliateCard, available)
+                MedicalShiftRepository.add(medicalShift)
+            }
+        }
+    }
 
     companion object {
         /**

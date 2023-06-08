@@ -43,7 +43,7 @@
         android:id="@+id/recycler_medical_shift"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
 
         />
 </androidx.appcompat.widget.LinearLayoutCompat>
