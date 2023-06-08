@@ -16,17 +16,31 @@
         android:src="@drawable/logonicimedico"
         android:scaleType="centerCrop"
         />
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <AutoCompleteTextView
+        android:id="@+id/ac_especialty"
+        android:layout_width="300dp"
         android:layout_height="40dp"
         android:hint="@string/especialidad"
         android:background="@color/backgroundColorText"
         app:fontFamily="sans-serif-black"
 
+
         />
+
+        <Button
+            android:id="@+id/bt_buscar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BUSCAR"
+            app:cornerRadius="20dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerRepair"
+        android:id="@+id/recycler_medical_shift"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"

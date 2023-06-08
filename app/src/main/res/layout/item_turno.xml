@@ -75,13 +75,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="140dp"
+                android:layout_marginTop="31dp"
+
                 android:text="@string/cargando"
                 android:textSize="25sp"
 
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.962"
+                app:layout_constraintHorizontal_bias="0.1"
 
                 app:layout_constraintStart_toEndOf="@+id/tv_titulo_hora"
                 app:layout_constraintTop_toBottomOf="@+id/tv_fecha" />

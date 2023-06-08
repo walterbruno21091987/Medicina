@@ -50,7 +50,7 @@ object DoctorRepository {
      }
     }
     fun getDoctorForEmail(email: String): Doctor {
-      return doctors.first { it.email.equals(email) }
+      return doctors.first { it.email == email }
     }
 
 
