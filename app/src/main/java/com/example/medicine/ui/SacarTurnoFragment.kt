@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
@@ -15,9 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.medicine.R
 import com.example.medicine.adapter.MedicalShiftAdapter
 import com.example.medicine.databinding.FragmentSacarTurnoBinding
-import com.example.medicine.entities.Doctor
 import com.example.medicine.entities.MedicalShift
-import com.example.medicine.entities.Specialty
 import com.example.medicine.exception.EntryEmptyException
 import com.example.medicine.repository.DoctorRepository
 import com.example.medicine.repository.MedicalShiftRepository
@@ -68,20 +67,30 @@ class SacarTurnoFragment : Fragment() {
         this.contexto=context
     }
 
+    @SuppressLint("SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val email=arguments?.getString("EMAIL_USER")?:""
-
+       val especialidadList:Array<String> =resources.getStringArray(R.array.especialidad)
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(view.context,android.R.layout.simple_dropdown_item_1line,especialidadList)
+        binding.acEspecialty.setAdapter(adapter)
         binding.btBuscar.setOnClickListener {
-        try{   if(!binding.acEspecialty.text.isEmpty()){
-            val especialidad=binding.acEspecialty.text.toString()
 
+            val specialty=binding.acEspecialty.text.toString()
+        try{   if(!specialty.isEmpty()&&especialidadList.contains(specialty)){
+
+            val dbUser=FirebaseFirestore.getInstance()
           binding.recyclerMedicalShift.layoutManager=LinearLayoutManager(contexto)
+            dbUser.collection("affiliate").document(email).get().addOnSuccessListener {
+                val affiliateCard:Int=it.get("affiliatenumber").toString().toInt()
+                binding.recyclerMedicalShift.adapter=MedicalShiftAdapter(MedicalShiftRepository.getMedicalShiftsAvailable().filter { it.doctor.specialty.name == specialty },affiliateCard,contexto)
 
-            binding.recyclerMedicalShift.adapter=MedicalShiftAdapter(MedicalShiftRepository.getMedicalShiftsAvailable().filter { it.doctor.specialty.name == especialidad },12345678,contexto)
+            }
 
             }else{
-                throw EntryEmptyException("DEBE INGRESAR UNA ESPECIALIDAD")
+                throw EntryEmptyException("DEBE INGRESAR UNA ESPECIALIDAD VALIDA")
+
            }}catch (e:EntryEmptyException){
                Toast.makeText(context,e.message,Toast.LENGTH_LONG).show()
             FirebaseCrashlytics.getInstance().recordException(e)

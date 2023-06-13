@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentCredencialBinding
@@ -42,6 +43,7 @@ class CredencialFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val email=arguments?.getString("EMAIL_USER")?:""
 

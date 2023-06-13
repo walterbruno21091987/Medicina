@@ -26,6 +26,9 @@ object MedicalShiftRepository {
         return medicalShifts.add(newShifts)
     }
 
+   fun getMedicalShifts():List<MedicalShift>{
+       return medicalShifts
+   }
     fun getForNumberTurn(numTurno: Int): List<MedicalShift> {
      return medicalShifts.filter{ it.getnumTurno() == numTurno }
     }

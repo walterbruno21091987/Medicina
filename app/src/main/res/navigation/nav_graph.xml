@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_userMenu_to_sacarTurnoFragment"
             app:destination="@id/sacarTurnoFragment" />
+        <action
+            android:id="@+id/action_userMenu_to_listMedicalShiftForUserFragment"
+            app:destination="@id/listMedicalShiftForUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrarUsuarioFragment"
@@ -60,5 +63,17 @@
     <fragment
         android:id="@+id/sacarTurnoFragment"
         android:name="com.example.medicine.ui.SacarTurnoFragment"
-        android:label="SacarTurnoFragment" />
+        android:label="SacarTurnoFragment" >
+        <action
+            android:id="@+id/action_sacarTurnoFragment_to_userMenu"
+            app:destination="@id/userMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/listMedicalShiftForUserFragment"
+        android:name="com.example.medicine.ui.ListMedicalShiftForUserFragment"
+        android:label="ListMedicalShiftForUserFragment" >
+        <action
+            android:id="@+id/action_listMedicalShiftForUserFragment_to_userMenu"
+            app:destination="@id/userMenu" />
+    </fragment>
 </navigation>

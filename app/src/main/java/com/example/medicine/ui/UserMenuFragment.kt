@@ -76,6 +76,11 @@ class UserMenu : Fragment() {
             val email= bundleOf("EMAIL_USER" to bundle)
             findNavController().navigate(R.id.action_userMenu_to_sacarTurnoFragment,email)
         }
+        binding.btHistorialTurno.setOnClickListener {
+            val bundle= arguments?.getString("EMAIL")
+            val email= bundleOf("EMAIL_USER" to bundle)
+            findNavController().navigate(R.id.action_userMenu_to_listMedicalShiftForUserFragment,email)
+        }
 
     }
 
