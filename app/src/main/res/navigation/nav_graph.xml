@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_userMenu_to_listMedicalShiftForUserFragment"
             app:destination="@id/listMedicalShiftForUserFragment" />
+        <action
+            android:id="@+id/action_userMenu_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrarUsuarioFragment"
@@ -74,6 +77,14 @@
         android:label="ListMedicalShiftForUserFragment" >
         <action
             android:id="@+id/action_listMedicalShiftForUserFragment_to_userMenu"
+            app:destination="@id/userMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.medicine.ui.ChatFragment"
+        android:label="ChatFragment" >
+        <action
+            android:id="@+id/action_chatFragment_to_userMenu"
             app:destination="@id/userMenu" />
     </fragment>
 </navigation>
