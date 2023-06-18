@@ -51,7 +51,7 @@ class CredencialFragment : Fragment() {
       if(email!=""){
         render(email)}
     }
-
+//COMO LO HARIA EN REPOSITORY?
     private fun render(email: String) {
         val db=FirebaseFirestore.getInstance()
         db.collection("affiliate").document(email).get().addOnSuccessListener {

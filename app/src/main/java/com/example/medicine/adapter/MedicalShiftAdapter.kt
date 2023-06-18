@@ -9,12 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentRecoverPasswordBinding
 import com.example.medicine.databinding.ItemTurnoBinding
 import com.example.medicine.entities.MedicalShift
+import com.example.medicine.repository.MedicalShiftRepository
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 class MedicalShiftAdapter(val medicalShiftList:List<MedicalShift>,val affiliateCard:Int,val context:Context): RecyclerView.Adapter<MedicalShiftViewHolder>() {
     lateinit var binding: ItemTurnoBinding
@@ -31,7 +35,7 @@ class MedicalShiftAdapter(val medicalShiftList:List<MedicalShift>,val affiliateC
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MedicalShiftViewHolder, position: Int) {
-       db= FirebaseFirestore.getInstance()
+
         val medicalShift=medicalShiftList[position]
         if(!medicalShift.available){
             binding.btRegistarTurno.visibility=View.GONE
@@ -41,13 +45,9 @@ class MedicalShiftAdapter(val medicalShiftList:List<MedicalShift>,val affiliateC
         binding.tvHora.text=medicalShift.hora.toString()
         binding.tvEspecialidad.text=medicalShift.doctor.specialty.name
         binding.btRegistarTurno.setOnClickListener {
-
-     db.collection("medicalShift").document(medicalShift.numMedicalShift.toString()).set(
-         hashMapOf("available" to false,"affiliateCard" to affiliateCard,"doctor" to medicalShift.doctor.email,"day" to medicalShift.fecha.dayOfMonth, "mont" to medicalShift.fecha.monthValue, "year" to medicalShift.fecha.year,"hour" to medicalShift.hora.hour,"minute" to medicalShift.hora.minute,"numMedicalShift" to medicalShift.numMedicalShift)
-     )
-
-
-           Toast.makeText(context,"TURNO RESERVADO",Toast.LENGTH_LONG).show()
+       MedicalShiftRepository.setAvailable(medicalShift,affiliateCard)
+            Toast.makeText(context,"TURNO RESERVADO",Toast.LENGTH_LONG).show()
+            binding.btRegistarTurno.visibility=View.GONE
         }
     }
 }

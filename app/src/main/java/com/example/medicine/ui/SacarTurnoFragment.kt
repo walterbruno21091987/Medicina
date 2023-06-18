@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.medicine.R
 import com.example.medicine.adapter.MedicalShiftAdapter
@@ -39,7 +40,7 @@ class SacarTurnoFragment : Fragment() {
     lateinit var contexto: Context
     private var param1: String? = null
     private var param2: String? = null
- lateinit var  binding:FragmentSacarTurnoBinding
+    lateinit var binding: FragmentSacarTurnoBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -54,8 +55,9 @@ class SacarTurnoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-     binding=DataBindingUtil.inflate(layoutInflater,R.layout.fragment_sacar_turno, container, false)
-        loadDataMedicalShift()
+        binding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_sacar_turno, container, false)
+
         return binding.root
     }
 
@@ -64,59 +66,65 @@ class SacarTurnoFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        this.contexto=context
+        this.contexto = context
     }
+
+
 
     @SuppressLint("SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val email=arguments?.getString("EMAIL_USER")?:""
-       val especialidadList:Array<String> =resources.getStringArray(R.array.especialidad)
+
+        val email = arguments?.getString("EMAIL_USER") ?: ""
+        val especialidadList: Array<String> = resources.getStringArray(R.array.especialidad)
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(view.context,android.R.layout.simple_dropdown_item_1line,especialidadList)
+            ArrayAdapter<String>(
+                view.context,
+                android.R.layout.simple_dropdown_item_1line,
+                especialidadList
+            )
         binding.acEspecialty.setAdapter(adapter)
+        listener(especialidadList, email)
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun listener(especialidadList: Array<String>, email: String) {
         binding.btBuscar.setOnClickListener {
 
-            val specialty=binding.acEspecialty.text.toString()
-        try{   if(!specialty.isEmpty()&&especialidadList.contains(specialty)){
+            val specialty = binding.acEspecialty.text.toString()
+            try {
+                if (!specialty.isEmpty() && especialidadList.contains(specialty)) {
 
-            val dbUser=FirebaseFirestore.getInstance()
-          binding.recyclerMedicalShift.layoutManager=LinearLayoutManager(contexto)
-            dbUser.collection("affiliate").document(email).get().addOnSuccessListener {
-                val affiliateCard:Int=it.get("affiliatenumber").toString().toInt()
-                binding.recyclerMedicalShift.adapter=MedicalShiftAdapter(MedicalShiftRepository.getMedicalShiftsAvailable().filter { it.doctor.specialty.name == specialty },affiliateCard,contexto)
+                    val dbUser = FirebaseFirestore.getInstance()
+                    binding.recyclerMedicalShift.layoutManager = LinearLayoutManager(contexto)
+                    dbUser.collection("affiliate").document(email).get().addOnSuccessListener {
 
+                        val affiliateCard: Int = it.get("affiliatenumber").toString().toInt()
+                        binding.recyclerMedicalShift.adapter = MedicalShiftAdapter(
+                            MedicalShiftRepository.getMedicalShiftsAvailable()
+                                .filter { it.doctor.specialty.name == specialty },
+                            affiliateCard,
+                            contexto
+                        )
+
+                    }
+
+                } else {
+                    throw EntryEmptyException("DEBE INGRESAR UNA ESPECIALIDAD VALIDA")
+
+                }
+            } catch (e: EntryEmptyException) {
+                Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+                FirebaseCrashlytics.getInstance().recordException(e)
             }
 
-            }else{
-                throw EntryEmptyException("DEBE INGRESAR UNA ESPECIALIDAD VALIDA")
-
-           }}catch (e:EntryEmptyException){
-               Toast.makeText(context,e.message,Toast.LENGTH_LONG).show()
-            FirebaseCrashlytics.getInstance().recordException(e)
-           }
-
         }
-        }
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun loadDataMedicalShift() {
-        val db = FirebaseFirestore.getInstance()
-        db.collection("medicalShift").get().addOnSuccessListener {
-            for (document in it) {
-                val doctor = DoctorRepository.getDoctorForEmail(document.get("doctor").toString())
-                val year = document.get("year").toString().toInt()
-                val mont = document.get("mont").toString().toInt()
-                val day = document.get("day").toString().toInt()
-                val hour = document.get("hour").toString().toInt()
-                val minute = document.get("minute").toString().toInt()
-                val numMedicalShift = document.get("numMedicalShift").toString().toInt()
-                val numAffiliateCard = document.get("affiliateCard").toString().toInt()
-                val available = document.get("available").toString().toBoolean()
-                val medicalShift = MedicalShift(LocalDate.of(year, mont, day), LocalTime.of(hour, minute), doctor, numMedicalShift, numAffiliateCard, available)
-                MedicalShiftRepository.add(medicalShift)
-            }
+        binding.btSalirSacarTurnoFragment.setOnClickListener {
+            findNavController().navigate(R.id.action_sacarTurnoFragment_to_userMenu)
         }
     }
+
 
     companion object {
         /**

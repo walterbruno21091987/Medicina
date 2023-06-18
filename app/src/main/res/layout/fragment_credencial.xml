@@ -133,5 +133,14 @@
             app:srcCompat="@drawable/logounlamsinfondo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_salir"
+        android:layout_width="60dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="340dp"
+        android:layout_marginTop="250dp"
+        android:background="@drawable/ic_salir"
+        android:foreground="?android:attr/selectableItemBackground"
+        />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

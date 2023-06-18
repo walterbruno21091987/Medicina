@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".registerUser"
         android:orientation="vertical"
-        android:background="@drawable/fondoconmarcamedicinachico">
+        android:background="@color/backgroundLayout">
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

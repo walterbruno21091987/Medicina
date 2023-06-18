@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.example.medicine.entities.Doctor
 import com.example.medicine.entities.Specialty
 import com.example.medicine.repository.DoctorRepository
+import com.example.medicine.repository.MedicalShiftRepository
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
