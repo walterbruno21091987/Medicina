@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentUserMenuBinding
 import com.example.medicine.repository.MedicalShiftRepository
+import com.example.medicine.repository.RepositoryChat
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -62,34 +63,32 @@ class UserMenu : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         MedicalShiftRepository.loadDataMedicalShift()
-
-        listener()
+        val bundle= arguments?.getString("EMAIL")
+        val email= bundleOf("EMAIL_USER" to bundle)
+        RepositoryChat.loadChat(email.toString())
+        listener(email)
 
     }
 
-    private fun listener() {
+    private fun listener(email: Bundle) {
         binding.btSalir.setOnClickListener {
 
             findNavController().navigate(R.id.action_userMenu_to_logIn)
         }
         binding.btCredencial.setOnClickListener {
-            val bundle= arguments?.getString("EMAIL")
-            val email= bundleOf("EMAIL_USER" to bundle)
+
+
             findNavController().navigate(R.id.action_userMenu_to_credencialFragment,email)
         }
         binding.btSacarTurno.setOnClickListener {
-            val bundle= arguments?.getString("EMAIL")
-            val email= bundleOf("EMAIL_USER" to bundle)
             findNavController().navigate(R.id.action_userMenu_to_sacarTurnoFragment,email)
         }
         binding.btHistorialTurno.setOnClickListener {
-            val bundle= arguments?.getString("EMAIL")
-            val email= bundleOf("EMAIL_USER" to bundle)
+
             findNavController().navigate(R.id.action_userMenu_to_listMedicalShiftForUserFragment,email)
         }
         binding.btConsultaOnline.setOnClickListener {
-            val bundle= arguments?.getString("EMAIL")
-            val email= bundleOf("EMAIL_USER" to bundle)
+
             findNavController().navigate(R.id.action_userMenu_to_chatFragment,email)
         }
 

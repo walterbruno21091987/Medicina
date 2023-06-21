@@ -20,7 +20,9 @@
             android:id="@+id/chatListView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:stackFromBottom="true"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,6 +44,14 @@
                 android:text="Enviar" />
 
         </LinearLayout>
+        <Button
+            android:id="@+id/bt_finalizar_consulta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FINALIZAR CONSULTA"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/red_custom"
+            android:textColor="@color/black"/>
 
 
     </LinearLayout>

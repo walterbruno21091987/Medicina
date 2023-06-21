@@ -23,7 +23,11 @@ class ChatAdapter(context: Context, messages: List<Message>,val senderName: Stri
         }
 
         val contentTextView: TextView = itemView!!.findViewById(R.id.contentTextView)
-
+        if (isSender){val senderTextView:TextView=itemView!!.findViewById(R.id.senderTextView)
+        senderTextView.setText(senderName)}else {
+            val receiverTextView:TextView=itemView!!.findViewById(R.id.resiver_TextView)
+            receiverTextView.setText(message!!.sender)
+        }
         contentTextView.text = message?.content
 
         return itemView
