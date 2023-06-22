@@ -6,7 +6,6 @@ import android.os.Build
 import android.widget.ListView
 import androidx.annotation.RequiresApi
 import com.example.medicine.adapter.ChatAdapter
-import com.example.medicine.entities.MedicalShift
 import com.example.medicine.entities.Message
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDateTime
@@ -32,9 +31,12 @@ fun get():List<Message>{
     return messages
 }
 @RequiresApi(Build.VERSION_CODES.O)
-fun saveMessage(email:String,receiver:String, sender:String, content:String){
+fun saveMessage(receiver: String, sender: String, content: String){
 val date=LocalDateTime.now().toString()
-    db.collection(email).document(date).set(
+    db.collection(sender).document(date).set(
+        hashMapOf("sender" to sender,"receiver" to receiver,"content" to content)
+    )
+    db.collection(receiver).document(date).set(
         hashMapOf("sender" to sender,"receiver" to receiver,"content" to content)
     )
 }
@@ -55,7 +57,7 @@ val date=LocalDateTime.now().toString()
                 val sender=doctor.email
                 val receiver=email
                 val content=" HOLA SOY EL DOCTOR ${doctor.name}  ${ doctor.surname} EN QUE PUEDO AYUDARTE ?"
-               saveMessage(email,receiver,sender,content)
+               saveMessage(receiver, sender, content)
                 db.collection(email).get().addOnSuccessListener {
                     val messages: MutableList<Message> = mutableListOf()
                     for (document in it) {

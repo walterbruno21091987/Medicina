@@ -14,7 +14,6 @@ import com.example.medicine.R
 import com.example.medicine.adapter.ChatAdapter
 import com.example.medicine.databinding.FragmentChatBinding
 import com.example.medicine.entities.Message
-import com.example.medicine.repository.DoctorRepository
 import com.example.medicine.repository.RepositoryChat
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -91,7 +90,7 @@ class ChatFragment : Fragment() {
             chatListView.adapter = adapter
             val sender = email
             val receiver = messages.first().sender
-            RepositoryChat.saveMessage(email, receiver, sender, content)
+            RepositoryChat.saveMessage(receiver, sender, content)
             RepositoryChat.refreshChat(email, chatListView,contexto)
         }
 
