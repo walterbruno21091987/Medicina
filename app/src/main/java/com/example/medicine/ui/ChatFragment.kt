@@ -16,7 +16,11 @@ import com.example.medicine.adapter.ChatAdapter
 import com.example.medicine.databinding.FragmentChatBinding
 import com.example.medicine.entities.Message
 import com.example.medicine.repository.RepositoryChat
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +34,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class ChatFragment : Fragment() {
     // TODO: Rename and change types of parameters
-
+    lateinit var firebaseAnalytics:FirebaseAnalytics
    lateinit var binding:FragmentChatBinding
    private var param1: String? = null
     private var param2: String? = null
@@ -47,7 +51,8 @@ class ChatFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        firebaseAnalytics= Firebase.analytics
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_chat, container, false)
         return binding.root
     }
@@ -58,6 +63,14 @@ class ChatFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
+            val screenName="chat"
+            param(FirebaseAnalytics.Param.SCREEN_NAME,screenName)
+            param(FirebaseAnalytics.Param.SCREEN_CLASS,"chat")
+        }
+
+
+
         val email=arguments?.getString("EMAIL_USER")?:""
         val chatListView=binding.chatListView
         RepositoryChat.refreshChat(email, chatListView,contexto)

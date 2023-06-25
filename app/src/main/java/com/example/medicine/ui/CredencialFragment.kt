@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentCredencialBinding
-import com.example.medicine.entities.Affiliate
+import com.example.medicine.repository.AffilliateRepository
 
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -49,18 +49,12 @@ class CredencialFragment : Fragment() {
 
 
       if(email!=""){
-        render(email)}
-    }
-//COMO LO HARIA EN REPOSITORY?
-    private fun render(email: String) {
-        val db=FirebaseFirestore.getInstance()
-        db.collection("affiliate").document(email).get().addOnSuccessListener {
-            binding.tvApellidoUsuario.text=it.get("surname").toString()
-            binding.tvNombreUsuario.text=it.get("name").toString()
-            binding.tvDniUsuario.text=it.get("DNI").toString()
-           binding.tvNumeroAfiliadoUsuario.text=it.get("affiliatenumber").toString()
+        AffilliateRepository.renderAffiliateCard(email,binding)}
+        binding.btSalir.setOnClickListener {
+            findNavController().navigate(R.id.action_credencialFragment_to_userMenu)
         }
-      }
+    }
+
 
     companion object {
         /**

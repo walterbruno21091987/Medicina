@@ -77,9 +77,13 @@ object DoctorRepository {
         var doctor: Doctor
         do {
             doctor = doctors.filter { it.specialty == Specialty.CONSULTA_CLINICA }.random()
-        } while (doctor.chatEnable == false)
+        } while (!doctor.chatEnable)
+
+     doctor.changeChatEnable()
         return doctor
     }
+
+
 fun addDoctor(doctor:Doctor):Boolean{
     return doctors.add(doctor)
 }

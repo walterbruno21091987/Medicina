@@ -17,17 +17,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_medical_shift_for_user"
         android:layout_width="match_parent"
-        android:layout_height="520dp"
+        android:layout_height="match_parent"
         />
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bt_salir"
-        android:layout_width="60dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="340dp"
 
-        android:background="@drawable/ic_salir"
-        android:foreground="?android:attr/selectableItemBackground"
-        />
 
 
 

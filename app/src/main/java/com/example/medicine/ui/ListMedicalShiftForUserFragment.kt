@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.medicine.R
@@ -57,6 +58,8 @@ class ListMedicalShiftForUserFragment : Fragment() {
         MedicalShiftRepository.loadDataMedicalShift()
         val dbUser=FirebaseFirestore.getInstance()
         val email=arguments?.getString("EMAIL_USER")?:""
+    
+
         binding.recyclerMedicalShiftForUser.layoutManager=LinearLayoutManager(context)
         dbUser.collection("affiliate").document(email).get().addOnSuccessListener {
 
