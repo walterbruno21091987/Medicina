@@ -51,7 +51,7 @@ class ListMedicalShiftForUserFragment : Fragment() {
 
 
 
-    //COMO LO HARIA EN REPOSITORY?
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         MedicalShiftRepository.loadDataMedicalShift()

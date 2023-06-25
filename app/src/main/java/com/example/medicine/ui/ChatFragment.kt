@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.adapter.ChatAdapter
 import com.example.medicine.databinding.FragmentChatBinding
@@ -63,40 +64,20 @@ class ChatFragment : Fragment() {
 
         binding.sendButton.setOnClickListener {
         val content:String=binding.messageEditText.text.toString()
-            sendMessage(email, chatListView, content)
+            RepositoryChat.sendMessage(email, chatListView, content,contexto)
+            binding.messageEditText.setText(" ")
         }
 
+binding.btFinalizarConsulta.setOnClickListener {
 
+
+    findNavController().navigate(R.id.action_chatFragment_to_userMenu)
+}
 
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun sendMessage(
-        email: String,
-        chatListView: ListView,
-        content: String
-    ) {
-        val db = FirebaseFirestore.getInstance()
-        db.collection(email).get().addOnSuccessListener {
-            val messages: MutableList<Message> = mutableListOf()
-            for (document in it) {
-                val sender = document.get("sender").toString()
-                val receiver = document.get("receiver").toString()
-                val content = document.get("content").toString()
-                val message = Message(sender, receiver, content)
-                messages.add(message)
-            }
-            val adapter = ChatAdapter(contexto, messages, email)
-            chatListView.adapter = adapter
-            val sender = email
-            val receiver = messages.first().sender
-            RepositoryChat.saveMessage(receiver, sender, content)
-            RepositoryChat.refreshChat(email, chatListView,contexto)
-        }
 
-
-        binding.messageEditText.setText(" ")
-    }
 
 
     companion object {

@@ -40,6 +40,39 @@ val date=LocalDateTime.now().toString()
         hashMapOf("sender" to sender,"receiver" to receiver,"content" to content)
     )
 }
+    fun deleteChat(){
+
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun sendMessage(
+        email: String,
+        chatListView: ListView,
+        content: String,
+        contexto: Context,
+
+    ) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection(email).get().addOnSuccessListener {
+            val messages: MutableList<Message> = mutableListOf()
+            for (document in it) {
+                val sender = document.get("sender").toString()
+                val receiver = document.get("receiver").toString()
+                val content = document.get("content").toString()
+                val message = Message(sender, receiver, content)
+                messages.add(message)
+            }
+            val adapter = ChatAdapter(contexto, messages, email)
+            chatListView.adapter = adapter
+            val sender = email
+            val receiver = messages.first().sender
+          saveMessage(receiver, sender, content)
+            refreshChat(email, chatListView,contexto)
+        }
+
+
+
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun refreshChat(email: String, chatListView: ListView, contexto: Context) {
         val db = FirebaseFirestore.getInstance()
