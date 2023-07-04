@@ -1,5 +1,6 @@
 package com.example.medicine.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -7,10 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.adapter.ChatAdapter
 import com.example.medicine.databinding.FragmentChatBinding
@@ -19,7 +18,6 @@ import com.example.medicine.repository.RepositoryChat
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
@@ -60,6 +58,7 @@ class ChatFragment : Fragment() {
         super.onAttach(context)
         this.contexto=context
     }
+    @SuppressLint("SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,7 +83,6 @@ class ChatFragment : Fragment() {
 binding.btFinalizarConsulta.setOnClickListener {
 
 
-    findNavController().navigate(R.id.action_chatFragment_to_userMenu)
 }
 
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
     app:startDestination="@id/logIn">
 
@@ -8,6 +9,7 @@
         android:id="@+id/logIn"
         android:name="com.example.medicine.ui.LogIn"
         android:label="LogIn"
+        tools:layout="@layout/fragment_log_in"
         >
         <action
             android:id="@+id/action_logIn_to_userMenu"
@@ -18,11 +20,15 @@
         <action
             android:id="@+id/action_logIn_to_recoverPasswordFragment"
             app:destination="@id/recoverPasswordFragment" />
+        <action
+            android:id="@+id/action_logIn_to_adminMenuFragment"
+            app:destination="@id/adminMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/userMenu"
         android:name="com.example.medicine.ui.UserMenu"
-        android:label="MENU" >
+        android:label="MENU"
+        tools:layout="@layout/fragment_user_menu">
         <action
             android:id="@+id/action_userMenu_to_logIn"
             app:destination="@id/logIn" />
@@ -42,7 +48,8 @@
     <fragment
         android:id="@+id/registrarUsuarioFragment"
         android:name="com.example.medicine.ui.RegistrarUsuarioFragment"
-        android:label="RegistrarUsuarioFragment" >
+        android:label="RegistrarUsuarioFragment"
+        tools:layout="@layout/fragment_registrar_usuario">
         <action
             android:id="@+id/action_registrarUsuarioFragment_to_logIn"
             app:destination="@id/logIn" />
@@ -50,7 +57,8 @@
     <fragment
         android:id="@+id/credencialFragment"
         android:name="com.example.medicine.ui.CredencialFragment"
-        android:label="CredencialFragment" >
+        android:label="CredencialFragment"
+        tools:layout="@layout/fragment_credencial">
         <action
             android:id="@+id/action_credencialFragment_to_userMenu"
             app:destination="@id/userMenu" />
@@ -58,7 +66,8 @@
     <fragment
         android:id="@+id/recoverPasswordFragment"
         android:name="com.example.medicine.ui.RecoverPasswordFragment"
-        android:label="RecoverPasswordFragment" >
+        android:label="RecoverPasswordFragment"
+        tools:layout="@layout/fragment_recover_password">
         <action
             android:id="@+id/action_recoverPasswordFragment_to_logIn"
             app:destination="@id/logIn" />
@@ -66,7 +75,8 @@
     <fragment
         android:id="@+id/sacarTurnoFragment"
         android:name="com.example.medicine.ui.SacarTurnoFragment"
-        android:label="SacarTurnoFragment" >
+        android:label="SacarTurnoFragment"
+        tools:layout="@layout/fragment_sacar_turno">
         <action
             android:id="@+id/action_sacarTurnoFragment_to_userMenu"
             app:destination="@id/userMenu" />
@@ -74,7 +84,8 @@
     <fragment
         android:id="@+id/listMedicalShiftForUserFragment"
         android:name="com.example.medicine.ui.ListMedicalShiftForUserFragment"
-        android:label="ListMedicalShiftForUserFragment" >
+        android:label="ListMedicalShiftForUserFragment"
+        tools:layout="@layout/fragment_list_medical_shift_for_user">
         <action
             android:id="@+id/action_listMedicalShiftForUserFragment_to_userMenu"
             app:destination="@id/userMenu" />
@@ -82,9 +93,19 @@
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.medicine.ui.ChatFragment"
-        android:label="ChatFragment" >
+        android:label="ChatFragment"
+        tools:layout="@layout/fragment_chat">
         <action
             android:id="@+id/action_chatFragment_to_userMenu"
             app:destination="@id/userMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminMenuFragment"
+        android:name="com.example.medicine.ui.AdminMenuFragment"
+        android:label="AdminMenuFragment"
+        tools:layout="@layout/fragment_admin_menu">
+        <action
+            android:id="@+id/action_adminMenuFragment_to_logIn"
+            app:destination="@id/logIn" />
     </fragment>
 </navigation>

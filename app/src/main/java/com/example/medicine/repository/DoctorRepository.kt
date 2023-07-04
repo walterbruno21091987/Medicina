@@ -1,12 +1,6 @@
 package com.example.medicine.repository
 
-import android.content.Context
-import android.os.Build
-import android.widget.ListView
-import androidx.annotation.RequiresApi
-import com.example.medicine.adapter.ChatAdapter
 import com.example.medicine.entities.Doctor
-import com.example.medicine.entities.Message
 import com.example.medicine.entities.Specialty
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -54,7 +48,7 @@ object DoctorRepository {
                         especialidad = Specialty.PEDIATRIA
                     }
 
-                    "CONSULTA CLINICA" -> {
+                    "CONSULTA_CLINICA" -> {
                         especialidad = Specialty.CONSULTA_CLINICA
                     }
                 }
@@ -74,12 +68,15 @@ object DoctorRepository {
       return doctors.first { it.email == email }
     }
     fun getDoctorForChat(): Doctor{
-        var doctor: Doctor
-        do {
-            doctor = doctors.filter { it.specialty == Specialty.CONSULTA_CLINICA }.random()
-        } while (!doctor.chatEnable)
 
-     doctor.changeChatEnable()
+
+        var doctor: Doctor
+        var count=0
+        do { count++
+            doctor = doctors.filter { it.specialty == Specialty.CONSULTA_CLINICA }.random()
+        } while (!doctor.chatEnable&&count<20)
+
+     doctor.changeChatEnable(false)
         return doctor
     }
 

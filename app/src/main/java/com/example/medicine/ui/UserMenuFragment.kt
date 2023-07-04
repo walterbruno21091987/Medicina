@@ -65,6 +65,7 @@ class UserMenu : Fragment() {
         MedicalShiftRepository.loadDataMedicalShift()
         val bundle= arguments?.getString("EMAIL")
         val email= bundleOf("EMAIL_USER" to bundle)
+
         RepositoryChat.loadChat(email.toString())
         listener(email)
 

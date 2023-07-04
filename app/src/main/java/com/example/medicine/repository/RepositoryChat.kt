@@ -12,34 +12,34 @@ import java.time.LocalDateTime
 
 object RepositoryChat {
     private var messages : MutableList<Message> = mutableListOf()
-  @SuppressLint("StaticFieldLeak")
-  private val db=FirebaseFirestore.getInstance()
-fun loadChat(email:String){
-messages.clear()
-    db.collection(email).get().addOnSuccessListener {
-        for (document in it) {
-          val sender=document.get("sender").toString()
-            val receiver=document.get("receiver").toString()
-            val content=document.get("content").toString()
-            val message=Message(sender,receiver,content)
-            messages.add(message)
+    @SuppressLint("StaticFieldLeak")
+    private val db=FirebaseFirestore.getInstance()
+    fun loadChat(email:String){
+        messages.clear()
+        db.collection(email).get().addOnSuccessListener {
+            for (document in it) {
+                val sender=document.get("sender").toString()
+                val receiver=document.get("receiver").toString()
+                val content=document.get("content").toString()
+                val message=Message(sender,receiver,content)
+                messages.add(message)
+            }
         }
     }
-}
 
-fun get():List<Message>{
-    return messages
-}
-@RequiresApi(Build.VERSION_CODES.O)
-fun saveMessage(receiver: String, sender: String, content: String){
-val date=LocalDateTime.now().toString()
-    db.collection(sender).document(date).set(
-        hashMapOf("sender" to sender,"receiver" to receiver,"content" to content)
-    )
-    db.collection(receiver).document(date).set(
-        hashMapOf("sender" to sender,"receiver" to receiver,"content" to content)
-    )
-}
+    fun get():List<Message>{
+        return messages
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun saveMessage(receiver: String, sender: String, content: String){
+        val date=LocalDateTime.now().toString()
+        db.collection(sender).document(date).set(
+            hashMapOf("sender" to sender,"receiver" to receiver,"content" to content)
+        )
+        db.collection(receiver).document(date).set(
+            hashMapOf("sender" to sender,"receiver" to receiver,"content" to content)
+        )
+    }
     fun deleteChat(){
 
     }
@@ -50,7 +50,7 @@ val date=LocalDateTime.now().toString()
         content: String,
         contexto: Context,
 
-    ) {
+        ) {
         val db = FirebaseFirestore.getInstance()
         db.collection(email).get().addOnSuccessListener {
             val messages: MutableList<Message> = mutableListOf()
@@ -65,7 +65,7 @@ val date=LocalDateTime.now().toString()
             chatListView.adapter = adapter
             val sender = email
             val receiver = messages.first().sender
-          saveMessage(receiver, sender, content)
+            saveMessage(receiver, sender, content)
             refreshChat(email, chatListView,contexto)
         }
 
@@ -90,7 +90,7 @@ val date=LocalDateTime.now().toString()
                 val sender=doctor.email
                 val receiver=email
                 val content=" HOLA SOY EL DOCTOR ${doctor.name}  ${ doctor.surname} EN QUE PUEDO AYUDARTE ?"
-               saveMessage(receiver, sender, content)
+                saveMessage(receiver, sender, content)
                 db.collection(email).get().addOnSuccessListener {
                     val messages: MutableList<Message> = mutableListOf()
                     for (document in it) {
