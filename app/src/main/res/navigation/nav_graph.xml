@@ -107,5 +107,17 @@
         <action
             android:id="@+id/action_adminMenuFragment_to_logIn"
             app:destination="@id/logIn" />
+        <action
+            android:id="@+id/action_adminMenuFragment_to_create_MedicalShift_Fragment"
+            app:destination="@id/create_MedicalShift_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/create_MedicalShift_Fragment"
+        android:name="com.example.medicine.ui.Create_MedicalShift_Fragment"
+        android:label="Create_MedicalShift_Fragment"
+        tools:layout="@layout/fragment_create__medical_shift_">
+        <action
+            android:id="@+id/action_create_MedicalShift_Fragment_to_adminMenuFragment"
+            app:destination="@id/adminMenuFragment" />
     </fragment>
 </navigation>

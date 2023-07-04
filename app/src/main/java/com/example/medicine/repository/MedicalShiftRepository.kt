@@ -1,10 +1,11 @@
 package com.example.medicine.repository
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.example.medicine.entities.Specialty
-import com.example.medicine.entities.Doctor
+import androidx.navigation.fragment.NavHostFragment
 import com.example.medicine.entities.MedicalShift
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDate
@@ -42,8 +43,15 @@ object MedicalShiftRepository {
 
 
 
-    fun add(newShifts:MedicalShift): Boolean {
-        return medicalShifts.add(newShifts)
+    fun add(newShifts: MedicalShift, context: Context?) {
+        db.collection("medicalShift").document(newShifts.numMedicalShift.toString()).set(
+            hashMapOf("available" to true,"affiliateCard" to 0,"doctor" to newShifts.doctor.email,"day" to newShifts.fecha.dayOfMonth, "mont" to newShifts.fecha.monthValue, "year" to newShifts.fecha.year,"hour" to newShifts.hora.hour,"minute" to newShifts.hora.minute,"numMedicalShift" to newShifts.numMedicalShift)
+        ).addOnCompleteListener {
+            Toast.makeText(context,"TURNO AGREGADO CORRECTAMENTE",Toast.LENGTH_LONG).show()
+
+        }.addOnFailureListener {
+            Toast.makeText(context,"NO SE PUDO AGREGAR EL TURNO",Toast.LENGTH_LONG).show()
+        }
     }
 
    fun getMedicalShifts():List<MedicalShift>{

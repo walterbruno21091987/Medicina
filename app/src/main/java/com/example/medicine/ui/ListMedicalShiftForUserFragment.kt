@@ -64,7 +64,7 @@ class ListMedicalShiftForUserFragment : Fragment() {
         dbUser.collection("affiliate").document(email).get().addOnSuccessListener {
 
             val affiliateCard=it.get("affiliatenumber").toString().toInt()
-            binding.recyclerMedicalShiftForUser.adapter=MedicalShiftAdapter(MedicalShiftRepository.getMedicalShifts(),affiliateCard,contexto)
+            binding.recyclerMedicalShiftForUser.adapter=MedicalShiftAdapter(MedicalShiftRepository.getMedicalShifts().filter { it.affiliateCard==affiliateCard },affiliateCard,contexto)
         }
 
     }

@@ -85,7 +85,7 @@ class LogIn : Fragment() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun login(){
-        var loginCorrecto=false
+
         firebaseAuth=FirebaseAuth.getInstance()
         if(binding.etUser.text!!.isEmpty()){
          throw EntryEmptyException("Debe Ingresar Un Email")
@@ -93,6 +93,9 @@ class LogIn : Fragment() {
 
         val email=binding.etUser.text.toString()
         val password=binding.etPasword.text.toString()
+        if(email=="ADMIN"&&password=="12345678"){
+            findNavController().navigate(R.id.action_logIn_to_adminMenuFragment)
+        }
     firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener (requireActivity()){
  try{if(it.isSuccessful){
             navigateMenuUser()}

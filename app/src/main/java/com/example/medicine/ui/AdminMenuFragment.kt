@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.databinding.FragmentAdminMenuBinding
 
@@ -47,7 +48,7 @@ class AdminMenuFragment : Fragment() {
 
         }
         binding.btAgregarNuevoTurnoAdmin.setOnClickListener {
-
+findNavController().navigate(R.id.action_adminMenuFragment_to_create_MedicalShift_Fragment)
         }
     }
     companion object {
