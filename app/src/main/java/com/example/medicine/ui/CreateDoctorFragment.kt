@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
-import com.example.medicine.databinding.FragmentAdminMenuBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,12 +14,11 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [AdminMenuFragment.newInstance] factory method to
+ * Use the [CreateDoctorFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdminMenuFragment : Fragment() {
+class CreateDoctorFragment : Fragment() {
     // TODO: Rename and change types of parameters
-   lateinit var binding:FragmentAdminMenuBinding
     private var param1: String? = null
     private var param2: String? = null
 
@@ -38,22 +34,10 @@ class AdminMenuFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-      binding=DataBindingUtil.inflate(inflater,R.layout.fragment_admin_menu,container,false)
-        return binding.root
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_create_doctor, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        binding.btAgregarMedicoAdmin.setOnClickListener {
-
-        }
-        binding.btAgregarNuevoTurnoAdmin.setOnClickListener {
-findNavController().navigate(R.id.action_adminMenuFragment_to_create_MedicalShift_Fragment)
-        }
-        binding.btAgregarMedicoAdmin.setOnClickListener {
-            findNavController().navigate(R.id.action_adminMenuFragment_to_createDoctorFragment)
-        }
-    }
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -61,12 +45,12 @@ findNavController().navigate(R.id.action_adminMenuFragment_to_create_MedicalShif
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment AdminMenuFragment.
+         * @return A new instance of fragment CreateDoctorFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            AdminMenuFragment().apply {
+            CreateDoctorFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

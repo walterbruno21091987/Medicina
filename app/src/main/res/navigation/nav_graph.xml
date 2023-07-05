@@ -110,6 +110,9 @@
         <action
             android:id="@+id/action_adminMenuFragment_to_create_MedicalShift_Fragment"
             app:destination="@id/create_MedicalShift_Fragment" />
+        <action
+            android:id="@+id/action_adminMenuFragment_to_createDoctorFragment"
+            app:destination="@id/createDoctorFragment" />
     </fragment>
     <fragment
         android:id="@+id/create_MedicalShift_Fragment"
@@ -118,6 +121,15 @@
         tools:layout="@layout/fragment_create__medical_shift_">
         <action
             android:id="@+id/action_create_MedicalShift_Fragment_to_adminMenuFragment"
+            app:destination="@id/adminMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createDoctorFragment"
+        android:name="com.example.medicine.ui.CreateDoctorFragment"
+        android:label="CreateDoctorFragment"
+        tools:layout="@layout/fragment_create_doctor">
+        <action
+            android:id="@+id/action_createDoctorFragment_to_adminMenuFragment"
             app:destination="@id/adminMenuFragment" />
     </fragment>
 </navigation>
