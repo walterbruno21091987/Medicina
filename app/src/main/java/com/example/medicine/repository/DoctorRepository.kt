@@ -1,7 +1,10 @@
 package com.example.medicine.repository
 
+import android.content.Context
+import android.widget.Toast
 import com.example.medicine.entities.Doctor
 import com.example.medicine.entities.Specialty
+import com.example.medicine.exception.NoMedicException
 import com.google.firebase.firestore.FirebaseFirestore
 
 object DoctorRepository {
@@ -75,14 +78,28 @@ object DoctorRepository {
         do { count++
             doctor = doctors.filter { it.specialty == Specialty.CONSULTA_CLINICA }.random()
         } while (!doctor.chatEnable&&count<20)
-
+if(doctor.chatEnable==false){
+    throw NoMedicException("NO SE AH ENCONTRADO UN MEDICO DISPONIBLE ")
+}
      doctor.changeChatEnable(false)
         return doctor
     }
 
 
-fun addDoctor(doctor:Doctor):Boolean{
-    return doctors.add(doctor)
+fun addDoctor(doctor: Doctor, context: Context){
+    val  dbRegister = FirebaseFirestore.getInstance()
+    val userEntry = hashMapOf(
+        "chatavailable" to true,
+        "dni" to doctor.dni,
+        "isDoctor" to true,
+        "name" to doctor.name,
+        "surname" to doctor.surname,
+        "email" to doctor.email,
+        "especialidad" to doctor.specialty.toString()
+    )
+    dbRegister.collection("Doctor").document(doctor.email).set(userEntry).addOnCanceledListener {
+        Toast.makeText(context,"NO SE PUDO AGREGAR LOS DATOS A LA BASE DE DATOS", Toast.LENGTH_LONG).show()
+    }
 }
 
 

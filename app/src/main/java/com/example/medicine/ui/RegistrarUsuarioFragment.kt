@@ -15,6 +15,8 @@ import com.example.medicine.entities.Affiliate
 import com.example.medicine.entities.User
 import com.example.medicine.exception.EntryEmptyException
 import com.example.medicine.exception.InsecurePasswordException
+import com.example.medicine.repository.AffilliateRepository
+import com.example.medicine.repository.UserRepository
 
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -93,9 +95,7 @@ class RegistrarUsuarioFragment : Fragment() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun registrerUser() {
-
         fieldValidation()
-
         val email=binding.etUserRegister.text.toString()
       val password=binding.etPasswordRegister.text.toString()
         if(Affiliate.validatePassword(password)==false) throw InsecurePasswordException("la contraseña debe tener almenos 8 caracteres,una mayuscula y un numero")
@@ -105,48 +105,12 @@ class RegistrarUsuarioFragment : Fragment() {
      val dni=binding.etDniUser.text.toString().toInt()
         val affiliate=Affiliate(nombre,apellido,dni,email,numeroAfiliado)
        addlogin(affiliate,password)
-       createDataUser(affiliate)
-        createDataAffiliate(affiliate)
-
-
-
-
+       UserRepository.createDataUser(affiliate,requireContext())
+        AffilliateRepository.createDataAffiliate(affiliate,requireContext())
     }
-
-
-
-
     private fun fieldValidation() {
         if (binding.etUserRegister.text!!.isEmpty() || binding.etNameRegister.text!!.isEmpty() || binding.etSurnameRegister.text!!.isEmpty() || binding.numeroDeAfiliado.text!!.isEmpty()) {
             throw EntryEmptyException("debe completar todos los campos")
-        }
-    }
-
-    private fun createDataUser(user: User) {
-
-        val userEntry = hashMapOf(
-            "DNI" to user.dni,
-            "isDoctor" to user.isDoctor,
-            "name" to user.name,
-            "surname" to user.surname,
-            "email" to user.email
-        )
-        dbRegister.collection("users").document(user.email).set(userEntry).addOnCanceledListener {
-            Toast.makeText(context,"NO SE PUDO AGREGAR LOS DATOS A LA BASE DE DATOS",Toast.LENGTH_LONG).show()
-        }
-    }
-    private fun createDataAffiliate(affiliate: Affiliate) {
-
-        val userEntry = hashMapOf(
-            "DNI" to affiliate.dni,
-            "isDoctor" to affiliate.isDoctor,
-            "name" to affiliate.name,
-            "surname" to affiliate.surname,
-            "email" to affiliate.email,
-            "affiliatenumber" to affiliate.affiliatenumber
-        )
-        dbRegister.collection("affiliate").document(affiliate.email).set(userEntry).addOnCanceledListener {
-            Toast.makeText(context,"NO SE PUDO AGREGAR LOS DATOS A LA BASE DE DATOS",Toast.LENGTH_LONG).show()
         }
     }
     private fun addlogin(user: User, password: String) {

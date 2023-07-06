@@ -8,17 +8,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Affiliate(name:String, surname:String, dni:Int, email:String, val affiliatenumber:Int, val imageUser:Int =R.drawable.iconopersona, isDoctor:Boolean=false):User(name,surname,dni,email,isDoctor) {
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun bookMedicalShift(numMedicalShift:Int){
-        val medicalShift=MedicalShiftRepository.getForNumberTurn(numMedicalShift).first()
-        medicalShift.affiliateCard=affiliatenumber//ojo!!! esto se debe modificar en la base de datos
-        medicalShift.available=false//ojo!!! esto se debe modificar en la base de datos
-        val dbChangeData=FirebaseFirestore.getInstance()
-        dbChangeData.collection("medicalShift").document(numMedicalShift.toString()).set(
-            hashMapOf("available" to false,"affiliateCard" to affiliatenumber)
-        )
 
-    }
+
+
     companion object{
        fun  validatePassword(password:String):Boolean{
            var mayus=false

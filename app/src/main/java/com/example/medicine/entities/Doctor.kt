@@ -1,5 +1,6 @@
 package com.example.medicine.entities
 
+import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Doctor (name:String, surname:String, dni:Int, email:String, val specialty: Specialty, val chatEnable: Boolean =true, isDoctor:Boolean=true) :User(name,surname,dni,email,isDoctor) {
@@ -14,4 +15,5 @@ class Doctor (name:String, surname:String, dni:Int, email:String, val specialty:
                 "name" to name,
                 "surname" to surname )
         )}
+
 }

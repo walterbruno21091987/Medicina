@@ -15,12 +15,23 @@
             android:src="@drawable/logonicimedico"
             android:scaleType="centerCrop"
             />
+        <AutoCompleteTextView
+            android:id="@+id/ac_especialty_doctor"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:hint="@string/especialidad"
+            android:background="@color/backgroundColorText"
+            app:fontFamily="sans-serif-black"
+             android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+
+            />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="25dp"
             android:layout_marginEnd="20dp"
 
             >
@@ -106,6 +117,7 @@
             >
 
 
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password_register_doctor"
                 android:layout_width="match_parent"
@@ -115,6 +127,7 @@
                 android:inputType="textPassword"
 
                 />
+
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

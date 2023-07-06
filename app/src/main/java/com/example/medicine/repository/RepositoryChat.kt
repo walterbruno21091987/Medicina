@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.widget.ListView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.medicine.adapter.ChatAdapter
 import com.example.medicine.entities.Message
+import com.example.medicine.exception.NoMedicException
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDateTime
 
@@ -86,7 +88,7 @@ object RepositoryChat {
                 messages.add(message)
             }
             if(messages.isEmpty()){
-                val doctor=DoctorRepository.getDoctorForChat()
+              try{  val doctor=DoctorRepository.getDoctorForChat()
                 val sender=doctor.email
                 val receiver=email
                 val content=" HOLA SOY EL DOCTOR ${doctor.name}  ${ doctor.surname} EN QUE PUEDO AYUDARTE ?"
@@ -102,6 +104,8 @@ object RepositoryChat {
                     }
                     val adapter = ChatAdapter(contexto, messages, email)
                     chatListView.adapter = adapter
+                }}catch (e:NoMedicException){
+                    Toast.makeText(contexto,e.message,Toast.LENGTH_LONG).show()
                 }}else{
                 val adapter = ChatAdapter(contexto, messages, email)
                 chatListView.adapter = adapter
