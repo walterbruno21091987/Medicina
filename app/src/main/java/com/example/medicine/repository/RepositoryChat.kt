@@ -42,7 +42,34 @@ object RepositoryChat {
             hashMapOf("sender" to sender,"receiver" to receiver,"content" to content)
         )
     }
-    fun deleteChat(){
+    fun deleteChat(email:String){
+
+        db.collection(email).get().addOnSuccessListener {
+            val messages: MutableList<Message> = mutableListOf()
+            for (document in it) {
+                val sender = document.get("sender").toString()
+                val receiver = document.get("receiver").toString()
+                val content = document.get("content").toString()
+                val message = Message(sender, receiver, content)
+                messages.add(message)
+
+                DoctorRepository.getDoctorForEmail(messages.first().sender).changeChatEnable(true)
+                db.collection(email).get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot.documents) {
+                    document.reference.delete()
+                }
+            }
+
+                db.collection(messages.first().sender).get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot.documents) {
+                    document.reference.delete()
+                }
+            }
+
+    }}
+
 
     }
     @RequiresApi(Build.VERSION_CODES.O)
@@ -52,7 +79,7 @@ object RepositoryChat {
         content: String,
         contexto: Context,
 
-        ) {
+        ) { try{
         val db = FirebaseFirestore.getInstance()
         db.collection(email).get().addOnSuccessListener {
             val messages: MutableList<Message> = mutableListOf()
@@ -73,7 +100,9 @@ object RepositoryChat {
 
 
 
-    }
+    }catch (e:java.util.NoSuchElementException){
+        Toast.makeText(contexto,"NO HAY MEDICO DISPONIBLE",Toast.LENGTH_LONG).show()
+    }}
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun refreshChat(email: String, chatListView: ListView, contexto: Context) {
@@ -106,6 +135,7 @@ object RepositoryChat {
                     chatListView.adapter = adapter
                 }}catch (e:NoMedicException){
                     Toast.makeText(contexto,e.message,Toast.LENGTH_LONG).show()
+
                 }}else{
                 val adapter = ChatAdapter(contexto, messages, email)
                 chatListView.adapter = adapter

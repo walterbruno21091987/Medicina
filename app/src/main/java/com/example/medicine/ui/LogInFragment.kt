@@ -15,6 +15,7 @@ import com.example.medicine.R
 import com.example.medicine.databinding.FragmentLogInBinding
 import com.example.medicine.exception.EntryEmptyException
 import com.example.medicine.exception.LoginFailedException
+import com.example.medicine.repository.UserRepository
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -45,6 +46,7 @@ class LogIn : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         firebaseAnalytics=Firebase.analytics
 
         binding= DataBindingUtil.inflate(inflater, R.layout.fragment_log_in,container,false)
@@ -54,7 +56,7 @@ class LogIn : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        UserRepository.loadUser()
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
             val screenName="login"
             param(FirebaseAnalytics.Param.SCREEN_NAME,screenName)
@@ -93,12 +95,20 @@ class LogIn : Fragment() {
 
         val email=binding.etUser.text.toString()
         val password=binding.etPasword.text.toString()
+
+
         if(email=="ADMIN"&&password=="12345678"){
             findNavController().navigate(R.id.action_logIn_to_adminMenuFragment)
         }
+
     firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener (requireActivity()){
  try{if(it.isSuccessful){
-            navigateMenuUser()}
+     if(UserRepository.UserForEmail(email).isDoctor){
+         val email=binding.etUser.text.toString()
+         val bundle= bundleOf("EMAIL" to email)
+         findNavController().navigate(R.id.action_logIn_to_doctorMenuFragment,bundle)
+
+     }else{   navigateMenuUser()}}
  else{
      throw LoginFailedException("USUARIO O CONTRASEÑA INCORRECTO")
 

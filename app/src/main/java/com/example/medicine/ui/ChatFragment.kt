@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.medicine.R
 import com.example.medicine.adapter.ChatAdapter
 import com.example.medicine.databinding.FragmentChatBinding
@@ -81,8 +82,9 @@ class ChatFragment : Fragment() {
         }
 
 binding.btFinalizarConsulta.setOnClickListener {
-
-
+RepositoryChat.deleteChat(email)
+    RepositoryChat.refreshChat(email,chatListView,contexto)
+findNavController().navigate(R.id.action_chatFragment_to_logIn)
 }
 
     }

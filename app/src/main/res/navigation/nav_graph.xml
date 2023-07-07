@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_logIn_to_adminMenuFragment"
             app:destination="@id/adminMenuFragment" />
+        <action
+            android:id="@+id/action_logIn_to_doctorMenuFragment"
+            app:destination="@id/doctorMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/userMenu"
@@ -98,6 +101,9 @@
         <action
             android:id="@+id/action_chatFragment_to_userMenu"
             app:destination="@id/userMenu" />
+        <action
+            android:id="@+id/action_chatFragment_to_logIn"
+            app:destination="@id/logIn" />
     </fragment>
     <fragment
         android:id="@+id/adminMenuFragment"
@@ -131,5 +137,17 @@
         <action
             android:id="@+id/action_createDoctorFragment_to_adminMenuFragment"
             app:destination="@id/adminMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorMenuFragment"
+        android:name="com.example.medicine.ui.DoctorMenuFragment"
+        android:label="DoctorMenuFragment"
+        tools:layout="@layout/fragment_doctor_menu">
+        <action
+            android:id="@+id/action_doctorMenuFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_doctorMenuFragment_to_logIn"
+            app:destination="@id/logIn" />
     </fragment>
 </navigation>
