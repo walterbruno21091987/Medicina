@@ -19,6 +19,7 @@ import com.example.medicine.repository.RepositoryChat
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
@@ -63,6 +64,8 @@ class ChatFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
             val screenName="chat"
             param(FirebaseAnalytics.Param.SCREEN_NAME,screenName)
@@ -73,8 +76,19 @@ class ChatFragment : Fragment() {
 
         val email=arguments?.getString("EMAIL_USER")?:""
         val chatListView=binding.chatListView
-        RepositoryChat.refreshChat(email, chatListView,contexto)
 
+        val db = FirebaseFirestore.getInstance()
+        db.collection(email)
+            .addSnapshotListener { snapshot, exception ->
+                if (exception != null) {
+                    // Maneja el error si ocurre algún problema al escuchar los cambios
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null) {
+                    RepositoryChat.refreshChat(email, chatListView,contexto)
+                }
+            }
         binding.sendButton.setOnClickListener {
         val content:String=binding.messageEditText.text.toString()
             RepositoryChat.sendMessage(email, chatListView, content,contexto)
